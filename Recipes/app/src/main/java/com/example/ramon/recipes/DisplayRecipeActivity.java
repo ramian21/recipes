@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.ramon.recipes.data.RecipeContract;
@@ -15,6 +16,8 @@ public class DisplayRecipeActivity extends AppCompatActivity {
     private TextView mDisplayServingsTextView;
     private TextView mDisplayPrepTimeTextView;
     private TextView mDisplayCookTimeTextView;
+    private ListView mIngredientListView;
+    private ListView mDirectionListView;
     private String[] mIngredientList;
     private String[] mDirectionList;
     private Cursor mCursor;
@@ -29,6 +32,9 @@ public class DisplayRecipeActivity extends AppCompatActivity {
         mDisplayServingsTextView = findViewById(R.id.tv_serves);
         mDisplayPrepTimeTextView = findViewById(R.id.tv_prep_time);
         mDisplayCookTimeTextView = findViewById(R.id.tv_cook_time);
+
+        mIngredientListView = findViewById(R.id.lv_ingredient_list);
+        mDirectionListView = findViewById(R.id.lv_direction_list);
 
         // TODO: figure out how to use resource arrays programmatically
         // mIngredientList = findViewById(R.array.list_ingredients_labels);
@@ -53,6 +59,7 @@ public class DisplayRecipeActivity extends AppCompatActivity {
                 mCursor.getColumnIndex(RecipeContract.RecipeEntry.COLUMN_PREP_TIME)));
         mDisplayCookTimeTextView.setText(mCursor.getString(
                 mCursor.getColumnIndex(RecipeContract.RecipeEntry.COLUMN_COOK_TIME)));
+
 
     }
 }

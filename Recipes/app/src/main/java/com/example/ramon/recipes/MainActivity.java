@@ -44,8 +44,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         setContentView(R.layout.activity_main);
         //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
-        mRecyclerView = (RecyclerView) findViewById(R.id.rv_recipes);
-        mLoadingIndicator = (ProgressBar) findViewById(R.id.pb_loading_indicator);
+        mRecyclerView = findViewById(R.id.rv_recipes);
+        mLoadingIndicator = findViewById(R.id.pb_loading_indicator);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this,
                 LinearLayoutManager.VERTICAL, false);
         mRecyclerView.setLayoutManager(layoutManager);
@@ -68,6 +68,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             }
         });
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -107,10 +108,12 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     }
 
     @Override
-    public void onListItemClick(int clickedItemIndex) {
-        //TODO: start intent to display recipe activity
-        //start with just being able to edit
+    public void onListItemClick(int recipeId) {
+        Intent displayRecipeIntent = new Intent(this, DisplayRecipeActivity.class);
+        displayRecipeIntent.putExtra(Intent.EXTRA_TEXT, "" + recipeId);
+        startActivity(displayRecipeIntent);
     }
+
 
     private void showRecipeList() {
         mLoadingIndicator.setVisibility(View.INVISIBLE);

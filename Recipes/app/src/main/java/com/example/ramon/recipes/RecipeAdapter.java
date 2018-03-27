@@ -48,6 +48,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.TitleViewH
 
         holder.itemView.setTag(id);
         holder.titleItemView.setText(title);
+        holder.id = id;
     }
 
     @Override
@@ -62,13 +63,14 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.TitleViewH
     }
 
     public interface ListItemClickListener {
-        void onListItemClick(int clickedItemIndex);
+        void onListItemClick(int id);
     }
 
     class TitleViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         //TextView that displays the title of the Recipe
         TextView titleItemView;
+        int id;
 
         public TitleViewHolder(View itemView) {
             super(itemView);
@@ -78,8 +80,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.TitleViewH
 
         @Override
         public void onClick(View view) {
-            int clickedPosition = getAdapterPosition();
-            mOnClickListener.onListItemClick(clickedPosition);
+            mOnClickListener.onListItemClick(id);
         }
     }
 }
