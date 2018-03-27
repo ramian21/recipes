@@ -40,7 +40,6 @@ public class RecipeContentProvider extends ContentProvider {
         final SQLiteDatabase db = mRecipeDbHelper.getWritableDatabase();
 
         int match = sUriMatcher.match(uri);
-        //TODO: figure out how to
         Uri returnUri;
         switch (match) {
             case RECIPES:

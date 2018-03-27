@@ -109,6 +109,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     @Override
     public void onListItemClick(int clickedItemIndex) {
         //TODO: start intent to display recipe activity
+        //start with just being able to edit
     }
 
     private void showRecipeList() {

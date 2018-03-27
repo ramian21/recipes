@@ -1,60 +1,117 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.ramon.recipes.AddRecipeActivity"
-    android:padding="16dp"
-    android:orientation="vertical">
+    tools:context="com.example.ramon.recipes.AddRecipeActivity">
 
-    <EditText
-        android:id="@+id/et_recipe_title"
+    <RelativeLayout
+        android:id="@+id/layout_add_recipe"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="start"
-        android:hint="Recipe Title"/>
+        android:descendantFocusability="beforeDescendants"
+        android:focusableInTouchMode="true"
+        android:orientation="vertical"
+        android:padding="16dp">
 
-    <EditText
-        android:id="@+id/et_servings"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="start"
-        android:hint="serves how many?"/>
+        <EditText
+            android:id="@+id/et_recipe_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="start"
+            android:hint="@string/recipe_title_hint" />
 
-    <EditText
-        android:id="@+id/et_prep_time"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="start"
-        android:hint="prep time?"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray" />
 
-    <EditText
-        android:id="@+id/et_cook_time"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="start"
-        android:hint="cook time?"/>
+        <EditText
+            android:id="@+id/et_servings"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/et_recipe_title"
+            android:gravity="start"
+            android:hint="@string/recipe_serves_hint" />
 
-    <EditText
-        android:id="@+id/et_ingredients"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="start"
-        android:hint="Ingredient List"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray" />
 
-    <EditText
-        android:id="@+id/et_directions"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="start"
-        android:hint="Directions"/>
+        <EditText
+            android:id="@+id/et_prep_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/et_servings"
+            android:gravity="start"
+            android:hint="@string/recipe_prep_time_hint" />
 
-    <Button
-        android:id="@+id/btn_submit_recipe"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:layout_marginTop="16dp"
-        android:text="Add"/>
-</LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray" />
+
+        <EditText
+            android:id="@+id/et_cook_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/et_prep_time"
+            android:gravity="start"
+            android:hint="@string/recipe_cook_time_hint" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray" />
+
+        <LinearLayout
+            android:id="@+id/layout_ingredients"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/et_cook_time"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/et_ingredients"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:hint="@string/recipe_ingredients_list_hint" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray" />
+
+        <LinearLayout
+            android:id="@+id/layout_directions"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/layout_ingredients"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/et_directions"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:hint="@string/recipe_directions_list_hint" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray" />
+
+        <Button
+            android:id="@+id/btn_submit_recipe"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/layout_directions"
+            android:layout_marginTop="16dp"
+            android:gravity="center"
+            android:text="@string/add_button_label" />
+    </RelativeLayout>
+</ScrollView>

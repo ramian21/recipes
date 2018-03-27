@@ -21,12 +21,27 @@
         </activity>
         <activity
             android:name=".AddRecipeActivity"
-            android:label="Add a New Recipe" />
+            android:label="@string/title_activity_add_recipe"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
+        <activity
+            android:name=".DisplayRecipeActivity"
+            android:label="@string/title_activity_display_recipe"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
 
         <provider
-            android:name="com.example.ramon.recipes.data.RecipeContentProvider"
+            android:name=".data.RecipeContentProvider"
             android:authorities="com.example.ramon.recipes"
             android:exported="false" />
+
+
     </application>
 
 </manifest>

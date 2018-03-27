@@ -1,4 +1,24 @@
 <resources>
     <string name="app_name">Recipes</string>
     <string name="action_settings">Settings</string>
+    <string name="title_activity_add_recipe">Add Recipe</string>
+    <string name="title_activity_display_recipe">Display Recipe</string>
+
+    <!--TODO: create strings xml values as needed-->
+
+    <string name="recipe_title_hint">Recipe Name</string>
+    <string name="recipe_serves_hint">Serves how many?</string>
+    <string name="recipe_prep_time_hint">prep time?</string>
+    <string name="recipe_cook_time_hint">cook time?</string>
+    <string name="recipe_ingredients_list_hint">Ingredient list</string>
+    <string name="recipe_next_ingredient_hint">Next ingredient</string>
+    <string name="recipe_directions_list_hint">Directions</string>
+    <string name="recipe_next_direction_hint">Next direction</string>
+
+    <string name="add_button_label">Add</string>
+
+    <string name="recipe_ingredients_label">Ingredients: </string>
+    <string name="recipe_directions_label">Directions: </string>
+
+
 </resources>
