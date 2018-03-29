@@ -61,10 +61,15 @@ public class AddRecipeActivity extends AppCompatActivity {
         mTextChangeListenerRemover = new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean hasFocus) {
+               // if the EditText loses focus
                 if (!hasFocus) {
+                    // check if it is empty (text has been deleted)
                     EditText et = (EditText) view;
+                    // if empty,
                     if (et.getText().toString().length() == 0) {
+                        // get its parent to remove it
                         ((ViewGroup) (view.getParent())).removeView(view);
+                        // and remove it from the ArrayList containing ingredients/directions
                         if (!mIngredientList.remove(et)) {
                             mDirectionList.remove(et);
                         }
@@ -117,7 +122,7 @@ public class AddRecipeActivity extends AppCompatActivity {
                 String servings = mServingsEditText.getText().toString();
                 String prepTime = mPrepTimeEditText.getText().toString();
                 String cookTime = mCookTimeEditText.getText().toString();
-                //TODO: figure out how to pack all ingredients/directions into db
+
                 String ingredients = "";
                 for (EditText e : mIngredientList) {
                     ingredients = ingredients.concat(e.getText().toString()).concat("`");

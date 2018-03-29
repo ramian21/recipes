@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -43,13 +44,11 @@ public class DisplayRecipeActivity extends AppCompatActivity {
 
         String id = parentIntent.getStringExtra(Intent.EXTRA_TEXT);
 
-        Uri uri = RecipeContract.RecipeEntry.CONTENT_URI.buildUpon().appendPath(id).build();
-
-        mCursor = getContentResolver().query(uri,
-                null,
-                null,
-                null,
-                null);
+        Uri uri = RecipeContract.RecipeEntry.CONTENT_URI;
+        // COMPLETED: find out why nothing is displaying
+        mCursor = getContentResolver().query(uri, null, null, null, null);
+        //  Log.v("debug", mCursor.toString());
+        mCursor.moveToPosition(Integer.parseInt(id) - 1);
 
         mDisplayTitleTextView.setText(mCursor.getString(
                 mCursor.getColumnIndex(RecipeContract.RecipeEntry.COLUMN_TITLE)));
