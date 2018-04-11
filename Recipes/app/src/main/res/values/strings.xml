@@ -7,6 +7,7 @@
 
     <!--TODO: create strings xml values as needed-->
 
+    <!--AddRecipeActivity-->
     <string name="recipe_title_hint">Recipe Name</string>
     <string name="recipe_serves_hint">Serves how many?</string>
     <string name="recipe_prep_time_hint">prep time?</string>
@@ -18,6 +19,10 @@
 
     <string name="add_button_label">Add</string>
 
+    <!--DisplayRecipeActivity-->
+    <string name="display_servings_prefix">Serves: </string>
+    <string name="display_prep_time_prefix">Prep Time: </string>
+    <string name="display_cook_time_prefix">Cook Time: </string>
     <string name="recipe_ingredients_label">Ingredients: </string>
     <string name="recipe_directions_label">Directions: </string>
 
