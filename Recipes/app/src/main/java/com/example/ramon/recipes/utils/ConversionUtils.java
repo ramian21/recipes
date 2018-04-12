@@ -18,7 +18,7 @@ public class ConversionUtils {
     public static final int GALLON = 1008; //"gallon";
 
     //Metric
-    public static final int MILLILETER = 1501; //"milliliter";
+    public static final int MILLILITER = 1501; //"milliliter";
     public static final int LITER = 1502; //"liter";
 
 
@@ -58,13 +58,102 @@ public class ConversionUtils {
     //convertTemperature
     //convertWeight
     //convertToBaseUnit
-//    public static double convertToMetric(double amount, int currentUnit) {
-//        if (currentUnit / 100 % 10 == 5) return amount;
-//
-//        double currentUnitInMilliliters;
-//        convertToBaseUnit(amount, currentUnit, MILLILETER);
-//
-//    }
+    public static double convertToMetric(double amount, int currentUnit) {
+
+        //check to see if unit is already in metric
+        //isolate the hundreds digit, 0 for imperial and 5 for metric
+        if (currentUnit / 100 % 10 == 5) return amount;
+
+        double currentUnitInBaseMetric;
+        int desiredUnitMeasurement;
+
+        switch (currentUnit / 1000) {
+            case 1: //liquid
+                desiredUnitMeasurement = MILLILITER;
+                break;
+            case 2:
+                desiredUnitMeasurement = GRAM;
+                break;
+            case 3:
+                desiredUnitMeasurement = CELSIUS;
+                break;
+            default:
+                desiredUnitMeasurement = -1;
+        }
+        currentUnitInBaseMetric = convertToBaseUnit(amount, currentUnit, desiredUnitMeasurement);
+
+        return currentUnitInBaseMetric;
+    }
+
+    public static double convertToImperial(double amount, int currentUnit) {
+
+        //check to see if unit is already in imperial
+        //isolate the hundreds digit, 0 for imperial and 5 for metric
+        if (currentUnit / 100 % 10 == 0) return amount;
+
+        double currentUnitInBaseImperial;
+        int desiredUnitMeasurement;
+
+        switch (currentUnit / 1000) {
+            case 1: //liquid
+                desiredUnitMeasurement = TEASPOON;
+                break;
+            case 2: //weight
+                desiredUnitMeasurement = OUNCE;
+                break;
+            case 3: //temperature
+                desiredUnitMeasurement = FAHRENHEIT;
+                break;
+            default:
+                desiredUnitMeasurement = -1;
+        }
+        currentUnitInBaseImperial = convertToBaseUnit(amount, currentUnit, desiredUnitMeasurement);
+
+        return currentUnitInBaseImperial;
+    }
+
+    public static double convertLiquid(double amount, int currentUnit, int desiredUnit) {
+
+        if (currentUnit / 1000 != 1)
+            return -1;
+
+        double convertedUnit;
+        int baseUnit;
+
+        if (currentUnit / 100 % 10 == 0) {
+            baseUnit = TEASPOON;
+        } else {
+            baseUnit = MILLILITER;
+        }
+        convertedUnit = convertToBaseUnit(amount, currentUnit, baseUnit);
+
+        switch (desiredUnit) {
+            case TEASPOON:
+                break;
+            case TABLESPOON:
+                convertedUnit *= 3;
+                break;
+            case FLUID_OUNCE:
+                convertedUnit *= 15;
+                break;
+            case CUP:
+                convertedUnit *= 120;
+                break;
+            case PINT:
+                convertedUnit *= 240;
+                break;
+            case QUART:
+                convertedUnit *= 480;
+                break;
+            case HALF_GALLON:
+                convertedUnit *= 960;
+                break;
+            case GALLON:
+                convertedUnit *= 1920;
+                break;
+        }
+        return convertedUnit;
+    }
 
 
     private static double convertToBaseUnit(double amount, int currentUnit, int desiredUnit) {
@@ -121,8 +210,11 @@ public class ConversionUtils {
             case QUART:
                 returnVal = (baseUnit * 480);
                 break;
-            case GALLON:
+            case HALF_GALLON:
                 returnVal = (baseUnit * 960);
+                break;
+            case GALLON:
+                returnVal = (baseUnit * 1920);
                 break;
             default:
                 returnVal = baseUnit;
