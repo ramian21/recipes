@@ -4,9 +4,11 @@
     <string name="action_delete">Clear Recipes</string>
     <string name="title_activity_add_recipe">Add Recipe</string>
     <string name="title_activity_display_recipe">Display Recipe</string>
+    <string name="title_activity_settings">Settings</string>
 
     <!--TODO: create strings xml values as needed-->
 
+    <!--AddRecipeActivity-->
     <string name="recipe_title_hint">Recipe Name</string>
     <string name="recipe_serves_hint">Serves how many?</string>
     <string name="recipe_prep_time_hint">prep time?</string>
@@ -18,8 +20,26 @@
 
     <string name="add_button_label">Add</string>
 
+    <!--DisplayRecipeActivity-->
+    <string name="display_servings_prefix">Serves: </string>
+    <string name="display_prep_time_prefix">Prep Time: </string>
+    <string name="display_cook_time_prefix">Cook Time: </string>
     <string name="recipe_ingredients_label">Ingredients: </string>
     <string name="recipe_directions_label">Directions: </string>
 
+    <!--Preferences-->
+    <string name="pref_unit_choice_label">Units</string>
+    <string name="pref_unit_choice_key">choice</string>
+    <string name="pref_choice_imperial_label">Imperial</string>
+    <string name="pref_choice_imperial_value" translatable="false">imperial</string>
+    <string name="pref_choice_metric_label">Metric</string>
+    <string name="pref_choice_metric_value" translatable="false">metric</string>
+
+    <string name="pref_unit_abbreviation_label">Unit Names</string>
+    <string name="pref_unit_abbreviation_key">length</string>
+    <string name="pref_name_full_label">Full Names</string>
+    <string name="pref_name_full_value" translatable="false">full</string>
+    <string name="pref_name_short_label">Abbreviations</string>
+    <string name="pref_name_short_value" translatable="false">short</string>
 
 </resources>

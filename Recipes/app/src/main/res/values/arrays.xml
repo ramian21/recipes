@@ -1,5 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <array name="pref_unit_choice_labels">
+        <item>@string/pref_choice_imperial_label</item>
+        <item>@string/pref_choice_metric_label</item>
+    </array>
+
+    <array name="pref_unit_choice_values">
+        <item>@string/pref_choice_imperial_value</item>
+        <item>@string/pref_choice_metric_value</item>
+    </array>
+
+    <array name="pref_unit_name_labels">
+        <item>@string/pref_name_full_label</item>
+        <item>@string/pref_name_short_label</item>
+    </array>
+
+    <array name="pref_unit_name_values">
+        <item>@string/pref_name_full_value</item>
+        <item>@string/pref_name_short_value</item>
+    </array>
+
     <array name="list_ingredients_labels">
 
 

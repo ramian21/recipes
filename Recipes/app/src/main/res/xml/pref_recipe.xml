@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <ListPreference
+        android:defaultValue="@string/pref_choice_imperial_value"
+        android:entries="@array/pref_unit_choice_labels"
+        android:entryValues="@array/pref_unit_choice_values"
+        android:key="@string/pref_unit_choice_key"
+        android:title="@string/pref_unit_choice_label" />
+
+    <ListPreference
+        android:defaultValue="@string/pref_name_full_value"
+        android:entries="@array/pref_unit_name_labels"
+        android:entryValues="@array/pref_unit_name_values"
+        android:key="@string/pref_unit_abbreviation_key"
+        android:title="@string/pref_unit_abbreviation_label" />
+
+
+</PreferenceScreen>
