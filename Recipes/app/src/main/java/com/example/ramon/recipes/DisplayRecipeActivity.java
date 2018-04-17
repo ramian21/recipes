@@ -72,7 +72,12 @@ public class DisplayRecipeActivity extends AppCompatActivity {
         String ingredientsFullString = mCursor.getString(
                 mCursor.getColumnIndex(RecipeContract.RecipeEntry.COLUMN_INGREDIENTS));
         mIngredientList = ingredientsFullString.split("`");
-        Log.v("debug", Arrays.asList(mIngredientList).toString());
+
+        // TODO: parse each entry of ingredient to find the measurement listed
+        //          for each, check against imperial/metric preference
+        //          if not preferred, convert
+        //          if measurement not found, leave as is
+
         ArrayAdapter<String> ingredientListAdapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1,
                 Arrays.asList(mIngredientList));

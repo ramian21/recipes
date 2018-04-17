@@ -12,6 +12,7 @@ import android.widget.ListView;
 
 public class Utils {
     // COMPLETED: figure out how this workaround works
+
     /**** Method for Setting the Height of the ListView dynamically.
      **** Hack to fix the issue of not showing all the items of the ListView
      **** when placed inside a ScrollView  ****/
@@ -47,5 +48,16 @@ public class Utils {
         ViewGroup.LayoutParams params = listView.getLayoutParams();
         params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
         listView.setLayoutParams(params);
+    }
+
+    public static boolean checkAgainstUnitPreference(String entry, int preference) {
+        boolean isPreferred = true;
+
+        //regex for word immediately after number until next whitespace
+        isPreferred = entry.matches(".*\\d+\\s[a-zA-Z]+\\s*");
+
+//        isPreferred = entry.matches(".*//d+//s[a-zA-Z]+//s*");
+
+        return isPreferred;
     }
 }
