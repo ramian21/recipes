@@ -8,7 +8,7 @@ public class UtilsTest {
 
     @Test
     public void regexWorks() throws Exception {
-        boolean test = Utils.checkAgainstUnitPreference("1 tablespoon", 0);
+        boolean test = Utils.checkAgainstUnitPreference("350°F", 0);
         assertEquals(true, test);
     }
 }

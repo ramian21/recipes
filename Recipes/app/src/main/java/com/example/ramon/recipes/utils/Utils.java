@@ -6,12 +6,123 @@ import android.view.ViewGroup.LayoutParams;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 /**
  * Created by Ramon on 3/28/2018.
  */
 
 public class Utils {
-    // COMPLETED: figure out how this workaround works
+
+    private final String[] TEASPOON = {
+            "teaspoon",
+            "teaspoons",
+            "tsp",
+            "ts",
+            "t",
+            "tspn"};
+
+    private final String[] TABLESPOON = {
+            "tablespoon",
+            "tablespoons",
+            "tbsp",
+            "T",
+            "tbls",
+            "Tb"
+    };
+
+    private final String[] FLUID_OUNCE = {
+            "fluid ounce",
+            "fluid ounces",
+            "fl oz"
+    };
+
+    private final String[] CUP = {
+            "cup",
+            "cups",
+            "c",
+            "C"
+    };
+
+    private final String[] PINT = {
+            "pint",
+            "pints",
+            "pt",
+            "pts"
+    };
+
+    private final String[] QUART = {
+            "quart",
+            "quarts",
+            "qt",
+            "qts",
+    };
+
+    private final String[] HALF_GALLON = {
+            "half gallon",
+            "half gallons,",
+            "half gal",
+            "half gals"
+    };
+
+    private final String[] GALLON = {
+            "gallon",
+            "gallons",
+            "gal",
+            "gals"
+    };
+
+    private final String[] MILLILITER = {
+            "milliliter",
+            "milliliters",
+            "mL",
+            "ml"
+    };
+
+    private final String[] LITER = {
+            "liter",
+            "liters",
+            "L"
+    };
+
+    private final String[] OUNCE = {
+            "ounce",
+            "ounces",
+            "oz"
+    };
+
+    private final String[] POUND = {
+            "pound",
+            "pounds",
+            "lb",
+            "lbs"
+    };
+
+    private final String[] GRAM = {
+            "gram",
+            "grams",
+            "g",
+    };
+
+    private final String[] KILOGRAM = {
+            "kilogram",
+            "kilograms",
+            "kg"
+    };
+
+    private final String[] FAHRENHEIT = {
+            "Fahrenheit",
+            "fahrenheit",
+            "°F"
+    };
+
+    private final String[] CELSIUS = {
+            "Celsius",
+            "celsius",
+            "°C"
+    };
+
 
     /**** Method for Setting the Height of the ListView dynamically.
      **** Hack to fix the issue of not showing all the items of the ListView
@@ -50,13 +161,24 @@ public class Utils {
         listView.setLayoutParams(params);
     }
 
-    public static boolean checkAgainstUnitPreference(String entry, int preference) {
+    public static void formatUnits(String[] array) {
+        for (String s : array) {
+            if (!checkAgainstUnitPreference(s, 0)) {
+                fixUnits(s);
+            }
+        }
+    }
+
+    private static void fixUnits(String entry) {
+
+    }
+
+    private static boolean checkAgainstUnitPreference(String entry, int preference) {
         boolean isPreferred = true;
 
-        //regex for word immediately after number until next whitespace
-        isPreferred = entry.matches(".*\\d+\\s[a-zA-Z]+\\s*");
+        //regex for word immediately after a number until next whitespace
+        isPreferred = entry.matches(".*\\d+\\s*°*[a-zA-Z]+\\s*");
 
-//        isPreferred = entry.matches(".*//d+//s[a-zA-Z]+//s*");
 
         return isPreferred;
     }

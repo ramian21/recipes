@@ -15,17 +15,17 @@
             android:id="@+id/tv_display_recipe_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="36sp"
+            android:layout_gravity="center"
             android:paddingTop="@dimen/fab_margin"
             android:text="test"
-            android:layout_gravity="center" />
+            android:textSize="36sp" />
 
         <TextView
             android:id="@+id/tv_serves"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="serves"
-            android:layout_gravity="center"/>
+            android:layout_gravity="center"
+            android:text="serves" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -38,14 +38,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingRight="5dp"
-                android:text="prep"/>
+                android:text="prep" />
 
             <TextView
                 android:id="@+id/tv_cook_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingLeft="5dp"
-                android:text="cook"/>
+                android:text="cook" />
 
         </LinearLayout>
 
@@ -64,8 +64,7 @@
             <ListView
                 android:id="@+id/lv_ingredient_list"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:entries="@array/list_ingredients_labels" />
+                android:layout_height="wrap_content" />
 
         </LinearLayout>
 
