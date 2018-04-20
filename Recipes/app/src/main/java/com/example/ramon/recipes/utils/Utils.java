@@ -15,28 +15,8 @@ import java.util.Arrays;
 
 public class Utils {
 
-    private final String[] TEASPOON = {
-            "teaspoon",
-            "teaspoons",
-            "tsp",
-            "ts",
-            "t",
-            "tspn"};
+// TODO: finish moving string array of names to Measurement.java
 
-    private final String[] TABLESPOON = {
-            "tablespoon",
-            "tablespoons",
-            "tbsp",
-            "T",
-            "tbls",
-            "Tb"
-    };
-
-    private final String[] FLUID_OUNCE = {
-            "fluid ounce",
-            "fluid ounces",
-            "fl oz"
-    };
 
     private final String[] CUP = {
             "cup",
