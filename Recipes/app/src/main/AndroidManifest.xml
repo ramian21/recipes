@@ -46,8 +46,6 @@
             android:name=".data.RecipeContentProvider"
             android:authorities="com.example.ramon.recipes"
             android:exported="false" />
-
-        <activity android:name=".SettingsActivity"></activity>
     </application>
 
 </manifest>
