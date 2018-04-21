@@ -1,5 +1,7 @@
 package com.example.ramon.recipes.utils;
 
+import android.util.Log;
+
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -14,7 +16,10 @@ public class UtilsTest {
 
     @Test
     public void addition_isCorrect() throws Exception {
-        boolean isTrue = Measurement.LiquidMeasurement.CUP instanceof Measurement.LiquidMeasurement;
-        assertTrue(isTrue);
+        String s = "";
+        for (Measurement m : Measurement.values()) {
+            s += m.toString();
+        }
+        assertSame("no", s);
     }
 }

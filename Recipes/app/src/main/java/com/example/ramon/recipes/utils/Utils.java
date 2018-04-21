@@ -9,99 +9,16 @@ import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import static com.example.ramon.recipes.utils.Measurement.getLists;
+
 /**
  * Created by Ramon on 3/28/2018.
  */
 
 public class Utils {
 
-// TODO: finish moving string array of names to Measurement.java
+// COMPLETED: finish moving string array of names to Measurement.java
 
-
-    private final String[] CUP = {
-            "cup",
-            "cups",
-            "c",
-            "C"
-    };
-
-    private final String[] PINT = {
-            "pint",
-            "pints",
-            "pt",
-            "pts"
-    };
-
-    private final String[] QUART = {
-            "quart",
-            "quarts",
-            "qt",
-            "qts",
-    };
-
-    private final String[] HALF_GALLON = {
-            "half gallon",
-            "half gallons,",
-            "half gal",
-            "half gals"
-    };
-
-    private final String[] GALLON = {
-            "gallon",
-            "gallons",
-            "gal",
-            "gals"
-    };
-
-    private final String[] MILLILITER = {
-            "milliliter",
-            "milliliters",
-            "mL",
-            "ml"
-    };
-
-    private final String[] LITER = {
-            "liter",
-            "liters",
-            "L"
-    };
-
-    private final String[] OUNCE = {
-            "ounce",
-            "ounces",
-            "oz"
-    };
-
-    private final String[] POUND = {
-            "pound",
-            "pounds",
-            "lb",
-            "lbs"
-    };
-
-    private final String[] GRAM = {
-            "gram",
-            "grams",
-            "g",
-    };
-
-    private final String[] KILOGRAM = {
-            "kilogram",
-            "kilograms",
-            "kg"
-    };
-
-    private final String[] FAHRENHEIT = {
-            "Fahrenheit",
-            "fahrenheit",
-            "°F"
-    };
-
-    private final String[] CELSIUS = {
-            "Celsius",
-            "celsius",
-            "°C"
-    };
 
 
     /**** Method for Setting the Height of the ListView dynamically.
@@ -159,6 +76,7 @@ public class Utils {
         //regex for word immediately after a number until next whitespace
         isPreferred = entry.matches(".*\\d+\\s*°*[a-zA-Z]+\\s*");
 
+        Measurement.Measurable[][] measurables = Measurement.getLists();
 
         return isPreferred;
     }
