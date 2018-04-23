@@ -42,8 +42,6 @@ public class DisplayRecipeActivity extends AppCompatActivity {
         mIngredientListView = findViewById(R.id.lv_ingredient_list);
         mDirectionListView = findViewById(R.id.lv_direction_list);
 
-        // COMPLETED: figure out how to use resource arrays programmatically
-
         Intent parentIntent = getIntent();
 
         String id = parentIntent.getStringExtra(Intent.EXTRA_TEXT);

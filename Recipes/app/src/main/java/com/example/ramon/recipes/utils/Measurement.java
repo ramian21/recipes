@@ -3,7 +3,110 @@ package com.example.ramon.recipes.utils;
 public enum Measurement {
     IMPERIAL, METRIC;
 
-    // TODO: figure out how to return a list of relevant measurements
+    private static String[] namesList = {
+            "teaspoon",
+            "teaspoons",
+            "tsp",
+            "ts",
+            "t",
+            "tspn",
+
+            "tablespoon",
+            "tablespoons",
+            "tbsp",
+            "T",
+            "tbls",
+            "Tb",
+
+            "fluid ounce",
+            "fluid ounces",
+            "fl oz",
+
+            "cup",
+            "cups",
+            "c",
+            "C",
+
+            "pint",
+            "pints",
+            "pt",
+            "pts",
+
+            "quart",
+            "quarts",
+            "qt",
+            "qts",
+
+            "half gallon",
+            "half gallons,",
+            "half gal",
+            "half gals",
+
+            "gallon",
+            "gallons",
+            "gal",
+            "gals",
+
+            "milliliter",
+            "milliliters",
+            "mL",
+            "ml",
+
+            "liter",
+            "liters",
+            "L",
+
+            "ounce",
+            "ounces",
+            "oz",
+
+            "pound",
+            "pounds",
+            "lb",
+            "lbs",
+
+            "gram",
+            "grams",
+            "g",
+
+            "kilogram",
+            "kilograms",
+            "kg",
+
+            "Fahrenheit",
+            "fahrenheit",
+            "°F",
+
+            "Celsius",
+            "celsius",
+            "°C"
+    };
+
+    public static Measurable getMeasurement(String givenUnit) {
+        for (int k = 0; k < namesList.length; k++) {
+            if (givenUnit.matches(namesList[k])) {
+                if (k < 6) return Liquid.TEASPOON;
+                if (k < 12) return Liquid.TABLESPOON;
+                if (k < 15) return Liquid.FLUID_OUNCE;
+                if (k < 19) return Liquid.CUP;
+                if (k < 23) return Liquid.PINT;
+                if (k < 27) return Liquid.QUART;
+                if (k < 31) return Liquid.HALF_GALLON;
+                if (k < 35) return Liquid.GALLON;
+                if (k < 39) return Liquid.MILLILITER;
+                if (k < 42) return Liquid.LITER;
+                if (k < 45) return Weight.OUNCE;
+                if (k < 49) return Weight.POUND;
+                if (k < 52) return Weight.GRAM;
+                if (k < 55) return Weight.KILOGRAM;
+                if (k < 58) return Temperature.FAHRENHEIT;
+                return Temperature.CELSIUS;
+            }
+        }
+        return null;
+    }
+
+    // COMPLETED: figure out how to return a list of relevant measurements
 
     public interface Measurable {
         public String[] getNamesList();
@@ -131,7 +234,7 @@ public enum Measurement {
         GRAM(1, METRIC, new String[]{
                 "gram",
                 "grams",
-                "g",
+                "g"
         }),
         KILOGRAM(1000, METRIC, new String[]{
                 "kilogram",

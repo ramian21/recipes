@@ -8,18 +8,24 @@ import static org.junit.Assert.*;
 
 public class UtilsTest {
 
+    @Test
+    public void regexWorks() throws Exception {
+        boolean test = Utils.checkAgainstUnitPreference("1 tablespoon of sugar", 0);
+        assertEquals(true, test);
+    }
+
 //    @Test
-//    public void regexWorks() throws Exception {
-//        boolean test = Utils.checkAgainstUnitPreference("350°F", 0);
-//        assertEquals(true, test);
+//    public void addition_isCorrect() throws Exception {
+//        String s = "";
+//        for (Measurement m : Measurement.values()) {
+//            s += m.toString();
+//        }
+//        assertSame("no", s);
 //    }
 
     @Test
-    public void addition_isCorrect() throws Exception {
-        String s = "";
-        for (Measurement m : Measurement.values()) {
-            s += m.toString();
-        }
-        assertSame("no", s);
+    public void measurement_found() throws Exception {
+        String input = "celsius";
+        assertEquals(Measurement.Temperature.CELSIUS, Measurement.getMeasurement(input));
     }
 }

@@ -17,7 +17,6 @@ import static com.example.ramon.recipes.utils.Measurement.getLists;
 
 public class Utils {
 
-// COMPLETED: finish moving string array of names to Measurement.java
 
 
 
@@ -70,13 +69,16 @@ public class Utils {
 
     }
 
-    private static boolean checkAgainstUnitPreference(String entry, int preference) {
+    public static boolean checkAgainstUnitPreference(String entry, int preference) {
         boolean isPreferred = true;
 
         //regex for word immediately after a number until next whitespace
-        isPreferred = entry.matches(".*\\d+\\s*°*[a-zA-Z]+\\s*");
+        //isPreferred = entry.matches(".*\\d+\\s*°*[a-zA-Z]+\\s*");
+        isPreferred = entry.matches("(?<=\\d\\s)[a-zA-Z]+");
 
-        Measurement.Measurable[][] measurables = Measurement.getLists();
+        // TODO: find out how to retrieve the measurement keyword from the entry
+
+        Measurement.Measurable measurement = Measurement.getMeasurement(entry);
 
         return isPreferred;
     }
