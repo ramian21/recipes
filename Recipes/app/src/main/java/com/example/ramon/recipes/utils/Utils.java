@@ -57,13 +57,13 @@ public class Utils {
         listView.setLayoutParams(params);
     }
 
-    public static void formatUnits(String[] array) {
-        for (String s : array) {
-            if (!checkAgainstUnitPreference(s, 0)) {
-                fixUnits(s);
-            }
-        }
-    }
+//    public static void formatUnits(String[] array) {
+//        for (String s : array) {
+//            if (!checkAgainstUnitPreference(s, 0)) {
+//                fixUnits(s);
+//            }
+//        }
+//    }
 
     private static void fixUnits(String entry) {
 
@@ -74,9 +74,17 @@ public class Utils {
 
         //regex for word immediately after a number until next whitespace
         //isPreferred = entry.matches(".*\\d+\\s*°*[a-zA-Z]+\\s*");
-        isPreferred = entry.matches("(?<=\\d\\s)[a-zA-Z]+");
 
-        // TODO: find out how to retrieve the measurement keyword from the entry
+       // isPreferred = entry.matches("(?<=\\d\\s)[a-zA-Z]+");
+
+
+
+        String[] entryWords = entry.split("\\s|°");
+
+        // TODO: loop through to find a number and retrieve the value from the index following
+        // TODO: check that value against Measurement.getMeasurement()
+
+        // COMPLETED: find out how to retrieve the measurement keyword from the entry
 
         Measurement.Measurable measurement = Measurement.getMeasurement(entry);
 

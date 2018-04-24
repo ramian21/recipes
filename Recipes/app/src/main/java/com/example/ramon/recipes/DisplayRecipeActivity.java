@@ -75,7 +75,7 @@ public class DisplayRecipeActivity extends AppCompatActivity {
         //          for each, check against imperial/metric preference
         //          if not preferred, convert
         //          if measurement not found, leave as is
-        Utils.formatUnits(mIngredientList);
+       // Utils.formatUnits(mIngredientList);
 
         ArrayAdapter<String> ingredientListAdapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1,

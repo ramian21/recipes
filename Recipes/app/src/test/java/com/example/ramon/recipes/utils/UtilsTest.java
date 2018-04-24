@@ -10,8 +10,10 @@ public class UtilsTest {
 
     @Test
     public void regexWorks() throws Exception {
-        boolean test = Utils.checkAgainstUnitPreference("1 tablespoon of sugar", 0);
-        assertEquals(true, test);
+
+        String[] test = Utils.checkAgainstUnitPreference("350°F", 0);
+        assertEquals("F", test[1]);
+
     }
 
 //    @Test
