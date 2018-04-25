@@ -76,15 +76,19 @@ public enum Measurement {
             "Fahrenheit",
             "fahrenheit",
             "°F",
+            "F",
 
             "Celsius",
             "celsius",
-            "°C"
+            "°C",
+            "C"
     };
 
+
+    // TODO: figure out how to prevent double words from being matched
     public static Measurable getMeasurement(String givenUnit) {
         for (int k = 0; k < namesList.length; k++) {
-            if (givenUnit.matches(namesList[k])) {
+            if (namesList[k].matches(".*" + givenUnit)) {
                 if (k < 6) return Liquid.TEASPOON;
                 if (k < 12) return Liquid.TABLESPOON;
                 if (k < 15) return Liquid.FLUID_OUNCE;
@@ -99,7 +103,7 @@ public enum Measurement {
                 if (k < 49) return Weight.POUND;
                 if (k < 52) return Weight.GRAM;
                 if (k < 55) return Weight.KILOGRAM;
-                if (k < 58) return Temperature.FAHRENHEIT;
+                if (k < 59) return Temperature.FAHRENHEIT;
                 return Temperature.CELSIUS;
             }
         }
@@ -109,7 +113,7 @@ public enum Measurement {
     // COMPLETED: figure out how to return a list of relevant measurements
 
     public interface Measurable {
-        public String[] getNamesList();
+        Measurement getType();
     }
 
     public enum Liquid implements Measurable {
@@ -197,6 +201,7 @@ public enum Measurement {
             return value;
         }
 
+        @Override
         public Measurement getType() {
             return type;
         }
@@ -205,10 +210,7 @@ public enum Measurement {
             return names;
         }
 
-        @Override
-        public String[] getNamesList() {
-            return getNames();
-        }
+
     }
 
     public enum Weight implements Measurable {
@@ -256,6 +258,7 @@ public enum Measurement {
             return value;
         }
 
+        @Override
         public Measurement getType() {
             return type;
         }
@@ -264,10 +267,7 @@ public enum Measurement {
             return names;
         }
 
-        @Override
-        public String[] getNamesList() {
-            return getNames();
-        }
+
     }
 
     public enum Temperature implements Measurable {
@@ -279,14 +279,16 @@ public enum Measurement {
         FAHRENHEIT(32, IMPERIAL, new String[]{
                 "Fahrenheit",
                 "fahrenheit",
-                "°F"
+                "°F",
+                "F"
         }),
 
         //Metric
         CELSIUS(0, METRIC, new String[]{
                 "Celsius",
                 "celsius",
-                "°C"
+                "°C",
+                "C"
         });
 
         private final int value;
@@ -303,6 +305,7 @@ public enum Measurement {
             return value;
         }
 
+        @Override
         public Measurement getType() {
             return type;
         }
@@ -311,10 +314,7 @@ public enum Measurement {
             return names;
         }
 
-        @Override
-        public String[] getNamesList() {
-            return getNames();
-        }
+
     }
 
     public static Measurable[][] getLists() {

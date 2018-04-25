@@ -8,6 +8,8 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static com.example.ramon.recipes.utils.Measurement.getLists;
 
@@ -16,8 +18,6 @@ import static com.example.ramon.recipes.utils.Measurement.getLists;
  */
 
 public class Utils {
-
-
 
 
     /**** Method for Setting the Height of the ListView dynamically.
@@ -57,37 +57,44 @@ public class Utils {
         listView.setLayoutParams(params);
     }
 
-//    public static void formatUnits(String[] array) {
-//        for (String s : array) {
-//            if (!checkAgainstUnitPreference(s, 0)) {
-//                fixUnits(s);
-//            }
-//        }
-//    }
+    public static void formatUnits(String[] array) {
+        for (String s : array) {
+            if (!checkAgainstUnitPreference(s, 0)) {
+                fixUnits(s);
+            }
+        }
+    }
 
     private static void fixUnits(String entry) {
 
     }
 
     public static boolean checkAgainstUnitPreference(String entry, int preference) {
-        boolean isPreferred = true;
 
-        //regex for word immediately after a number until next whitespace
-        //isPreferred = entry.matches(".*\\d+\\s*°*[a-zA-Z]+\\s*");
+        boolean isPreferred = false;
 
-       // isPreferred = entry.matches("(?<=\\d\\s)[a-zA-Z]+");
-
-
-
-        String[] entryWords = entry.split("\\s|°");
-
-        // TODO: loop through to find a number and retrieve the value from the index following
-        // TODO: check that value against Measurement.getMeasurement()
-
-        // COMPLETED: find out how to retrieve the measurement keyword from the entry
-
-        Measurement.Measurable measurement = Measurement.getMeasurement(entry);
-
+        String measureKeyWord = retrieveMeasurement(entry);
+        Measurement.Measurable measurement = Measurement.getMeasurement(measureKeyWord);
+        if (measurement != null) {
+            if (measurement.getType().equals(Measurement.IMPERIAL)) {
+                isPreferred = true;
+            }
+        }
         return isPreferred;
+    }
+
+    public static String retrieveMeasurement(String entry) {
+
+        String measureKeyWord = "";
+        Pattern pattern = Pattern.compile("(?<=\\d|\\s|°)[a-zA-Z]+");
+        Matcher matcher = pattern.matcher(entry);
+
+        if (matcher.find()) {
+            int start = matcher.start();
+            int end = matcher.end();
+            measureKeyWord = entry.substring(start, end);
+        }
+
+        return measureKeyWord;
     }
 }

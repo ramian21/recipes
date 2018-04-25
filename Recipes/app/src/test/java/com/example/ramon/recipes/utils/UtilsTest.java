@@ -9,12 +9,21 @@ import static org.junit.Assert.*;
 public class UtilsTest {
 
     @Test
-    public void regexWorks() throws Exception {
+    public void retrievalWorks() throws Exception {
 
-        String[] test = Utils.checkAgainstUnitPreference("350°F", 0);
-        assertEquals("F", test[1]);
+        String test = Utils.retrieveMeasurement("8 fluid ounces");
+        assertEquals("fluid", test);
 
     }
+
+    @Test
+    public void regexWorks() throws Exception {
+
+        boolean test = Utils.checkAgainstUnitPreference("5 oz flour", 0);
+        assertEquals(true, test);
+
+    }
+
 
 //    @Test
 //    public void addition_isCorrect() throws Exception {
