@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+<<<<<<< HEAD
     <array name="pref_unit_choice_labels">
         <item>@string/pref_choice_imperial_label</item>
         <item>@string/pref_choice_metric_label</item>
@@ -21,23 +22,62 @@
     </array>
 
     <array name="list_ingredients_labels">
+=======
+>>>>>>> wip
 
+    <!--Imperial -->
 
+    <!--Liquid-->
+    <array name="teaspoon">
+        <item>teaspoon</item>
+        <item>tsp</item>
+        <item>ts</item>
+        <item>t</item>
+        <item>tspn</item>
     </array>
 
+    <!--COMPLETED: figure out how to differentiate T and t-->
+    <!--COMPLETED: figure out how to check against two words-->
 
-    <array name="list_ingredients_values">
-
-
+    <array name="tablespoon">
+        <item>tablespoon</item>
+        <item>tbsp</item>
+        <item>T</item>
+        <item>tbls</item>
+        <item>Tb</item>
     </array>
 
-    <array name="list_directions_labels">
-
-
+    <array name="fluid_ounce">
+        <item>fluid ounce</item>
+        <item>fl oz</item>
     </array>
 
-    <array name="list_directions_values">
-
-
+    <array name="cup">
+        <item>cup</item>
+        <item>c</item>
+        <item>C</item>
     </array>
+
+    <array name="pint">
+        <item>pint</item>
+        <item>pt</item>
+    </array>
+
+    <array name="quart">
+        <item>quart</item>
+        <item>qt</item>
+    </array>
+
+    <array name="half_gallon">
+        <item>half gallon</item>
+    </array>
+
+    <array name="gallon">
+        <item>gallon</item>
+        <item>gal</item>
+    </array>
+
+    <!--Weight-->
+
+
 </resources>

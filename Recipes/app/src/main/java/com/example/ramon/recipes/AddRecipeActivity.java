@@ -131,7 +131,7 @@ public class AddRecipeActivity extends AppCompatActivity {
                 for (EditText e : mDirectionList) {
                     directions = directions.concat(e.getText().toString()).concat("`");
                 }
-
+                // TODO: do parsing and mathing to standardize entry time
                 ContentValues contentValues = new ContentValues();
                 contentValues.put(RecipeContract.RecipeEntry.COLUMN_TITLE, title);
                 contentValues.put(RecipeContract.RecipeEntry.COLUMN_SERVINGS, servings);
