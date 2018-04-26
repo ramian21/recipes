@@ -5,14 +5,8 @@ import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import static com.example.ramon.recipes.utils.Measurement.getLists;
-
 /**
  * Created by Ramon on 3/28/2018.
  */
@@ -69,13 +63,19 @@ public class Utils {
 
     }
 
+    public static String retrieveValue(String entry) {
+        String valueKeyWord = "";
+
+        return valueKeyWord;
+    }
+
     public static boolean checkAgainstUnitPreference(String entry, int preference) {
 
         boolean isPreferred = false;
 
         String measureKeyWord = retrieveMeasurement(entry);
         Measurement.Measurable measurement = Measurement.getMeasurement(measureKeyWord);
-        if (measurement != null) {
+        if (measurement != null) { // TODO: finish preferences and retrieve preference to match to entry keyword
             if (measurement.getType().equals(Measurement.IMPERIAL)) {
                 isPreferred = true;
             }

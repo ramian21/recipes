@@ -71,9 +71,9 @@ public class DisplayRecipeActivity extends AppCompatActivity {
                 mCursor.getColumnIndex(RecipeContract.RecipeEntry.COLUMN_INGREDIENTS));
         mIngredientList = ingredientsFullString.split("`");
 
-        // TODO: parse each entry of ingredient to find the measurement listed
-        //          for each, check against imperial/metric preference
-        //          if not preferred, convert
+        // COMPLETED: parse each entry of ingredient to find the measurement listed
+        // COMPLETED  for each, check against imperial/metric preference
+        //   TODO:   if not preferred, convert
         //          if measurement not found, leave as is
         Utils.formatUnits(mIngredientList);
 

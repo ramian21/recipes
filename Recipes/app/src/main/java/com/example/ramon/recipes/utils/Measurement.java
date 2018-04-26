@@ -1,7 +1,7 @@
 package com.example.ramon.recipes.utils;
 
 public enum Measurement {
-    IMPERIAL, METRIC;
+    IMPERIAL, METRIC, NEITHER;
 
     private static String[] namesList = {
             "teaspoon",
@@ -81,14 +81,32 @@ public enum Measurement {
             "Celsius",
             "celsius",
             "°C",
-            "C"
+            "C",
+
+            "second",
+            "seconds",
+            "sec",
+            "secs",
+            "s",
+
+            "minute",
+            "minutes",
+            "min",
+            "mins",
+            "m",
+
+            "hour",
+            "hours",
+            "hr",
+            "hrs",
+            "h"
     };
 
 
-    // TODO: figure out how to prevent double words from being matched
+    // COMPLETED: figure out how to prevent double words from being matched
     public static Measurable getMeasurement(String givenUnit) {
         for (int k = 0; k < namesList.length; k++) {
-            if (namesList[k].matches(".*" + givenUnit)) {
+            if (namesList[k].matches("^" + givenUnit)) {
                 if (k < 6) return Liquid.TEASPOON;
                 if (k < 12) return Liquid.TABLESPOON;
                 if (k < 15) return Liquid.FLUID_OUNCE;
@@ -104,7 +122,10 @@ public enum Measurement {
                 if (k < 52) return Weight.GRAM;
                 if (k < 55) return Weight.KILOGRAM;
                 if (k < 59) return Temperature.FAHRENHEIT;
-                return Temperature.CELSIUS;
+                if (k < 63) return Temperature.CELSIUS;
+                if (k < 68) return Time.SECOND;
+                if (k < 73) return Time.MINUTE;
+                return Time.HOUR;
             }
         }
         return null;
@@ -314,11 +335,55 @@ public enum Measurement {
             return names;
         }
 
-
     }
 
-    public static Measurable[][] getLists() {
-        Measurable[][] lists = {Liquid.values(), Weight.values(), Temperature.values()};
-        return lists;
+    public enum Time implements Measurable {
+
+        SECOND(1, NEITHER, new String[]{
+                "second",
+                "seconds",
+                "sec",
+                "secs",
+                "s"
+        }),
+
+        MINUTE(60, NEITHER, new String[]{
+                "minute",
+                "minutes",
+                "min",
+                "mins",
+                "m"
+        }),
+
+        HOUR(3600, NEITHER, new String[]{
+                "hour",
+                "hours",
+                "hr",
+                "hrs",
+                "h"
+        });
+
+        private final int value;
+        private final String[] names;
+        private final Measurement type;
+
+        Time(int value, Measurement type, String[] names) {
+            this.value = value;
+            this.type = type;
+            this.names = names;
+        }
+
+        public int getValue() {
+            return value;
+        }
+
+        @Override
+        public Measurement getType() {
+            return type;
+        }
+
+        public String[] getNames() {
+            return names;
+        }
     }
 }
