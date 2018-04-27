@@ -1,6 +1,7 @@
 package com.example.ramon.recipes;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
@@ -16,7 +17,8 @@ import com.example.ramon.recipes.utils.Utils;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class DisplayRecipeActivity extends AppCompatActivity {
+public class DisplayRecipeActivity extends AppCompatActivity implements
+        SharedPreferences.OnSharedPreferenceChangeListener {
 
     private TextView mDisplayTitleTextView;
     private TextView mDisplayServingsTextView;
@@ -27,10 +29,13 @@ public class DisplayRecipeActivity extends AppCompatActivity {
     private String[] mIngredientList;
     private String[] mDirectionList;
     private Cursor mCursor;
+    private boolean isImperial;
+    private boolean fullNames;
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState){
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_recipe);
 
@@ -38,9 +43,11 @@ public class DisplayRecipeActivity extends AppCompatActivity {
         mDisplayServingsTextView = findViewById(R.id.tv_serves);
         mDisplayPrepTimeTextView = findViewById(R.id.tv_prep_time);
         mDisplayCookTimeTextView = findViewById(R.id.tv_cook_time);
-
         mIngredientListView = findViewById(R.id.lv_ingredient_list);
         mDirectionListView = findViewById(R.id.lv_direction_list);
+
+        isImperial = true;
+        fullNames = false;
 
         Intent parentIntent = getIntent();
 
@@ -91,5 +98,14 @@ public class DisplayRecipeActivity extends AppCompatActivity {
                 Arrays.asList(mDirectionList));
         mDirectionListView.setAdapter(directionListAdapter);
         Utils.setListViewHeightBasedOnChildren(mDirectionListView);
+    }
+
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+        if(key.equals(getString(R.string.pref_unit_choice_key))) {
+            if(sharedPreferences.getString(key,"").equals(getString(R.string.pref_choice_imperial_value))) {
+                //
+            }
+        }
     }
 }
