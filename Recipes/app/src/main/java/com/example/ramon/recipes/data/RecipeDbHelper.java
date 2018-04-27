@@ -30,6 +30,9 @@ public class RecipeDbHelper extends SQLiteOpenHelper {
                 RecipeEntry.COLUMN_DIRECTIONS + " TEXT NOT NULL " +
                 ");";
         db.execSQL(CREATE_TABLE);
+
+        // TODO: add letter headers to database after creation
+        // TODO: add a column for search tags
     }
 
     @Override

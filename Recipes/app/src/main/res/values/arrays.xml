@@ -33,9 +33,6 @@
         <item>tspn</item>
     </array>
 
-    <!--COMPLETED: figure out how to differentiate T and t-->
-    <!--COMPLETED: figure out how to check against two words-->
-
     <array name="tablespoon">
         <item>tablespoon</item>
         <item>tbsp</item>

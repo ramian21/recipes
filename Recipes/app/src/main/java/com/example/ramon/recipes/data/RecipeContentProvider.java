@@ -87,6 +87,8 @@ public class RecipeContentProvider extends ContentProvider {
 
     @Override
     public int delete(@NonNull Uri uri, String selection, String[] selectionArgs) {
+
+
         final SQLiteDatabase db = mRecipeDbHelper.getWritableDatabase();
 
         int match = sUriMatcher.match(uri);
@@ -94,6 +96,7 @@ public class RecipeContentProvider extends ContentProvider {
 
         switch (match) {
             case RECIPES:
+                // TODO: update selection to not delete headers
                 rowsDeleted = db.delete(RecipeContract.RecipeEntry.TABLE_NAME, selection, selectionArgs);
                 break;
             case RECIPE_WITH_ID:

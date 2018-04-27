@@ -110,6 +110,9 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     @Override
     public void onListItemClick(int recipeId) {
+
+        // TODO: after adding headers per letter, implement checks to only display if not a header
+
         Intent displayRecipeIntent = new Intent(this, DisplayRecipeActivity.class);
         displayRecipeIntent.putExtra(Intent.EXTRA_TEXT, "" + recipeId);
         startActivity(displayRecipeIntent);

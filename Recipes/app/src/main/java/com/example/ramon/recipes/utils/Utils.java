@@ -1,5 +1,6 @@
 package com.example.ramon.recipes.utils;
 
+import android.content.SharedPreferences;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
@@ -53,7 +54,7 @@ public class Utils {
 
     public static void formatUnits(String[] array) {
         for (String s : array) {
-            if (!checkAgainstUnitPreference(s, 0)) {
+            if (!checkAgainstUnitPreference(s)) {
                 fixUnits(s);
             }
         }
@@ -69,13 +70,17 @@ public class Utils {
         return valueKeyWord;
     }
 
-    public static boolean checkAgainstUnitPreference(String entry, int preference) {
+    public static boolean checkAgainstUnitPreference(String entry) {
 
         boolean isPreferred = false;
 
-        String measureKeyWord = retrieveMeasurement(entry);
-        Measurement.Measurable measurement = Measurement.getMeasurement(measureKeyWord);
+        String measureKeyWord = retrieveMeasurement(entry); //retrieve keyword
+        Measurement.Measurable measurement = Measurement.getMeasurement(measureKeyWord); //match keyword to measurement
         if (measurement != null) { // TODO: finish preferences and retrieve preference to match to entry keyword
+
+            SharedPreferences sharedPreferences = 
+
+
             if (measurement.getType().equals(Measurement.IMPERIAL)) {
                 isPreferred = true;
             }

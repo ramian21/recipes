@@ -19,7 +19,7 @@ public class UtilsTest {
     @Test
     public void regexWorks() throws Exception {
 
-        boolean test = Utils.checkAgainstUnitPreference("3 T flour", 0);
+        boolean test = Utils.checkAgainstUnitPreference("3 T flour");
         assertEquals(true, test);
 
     }

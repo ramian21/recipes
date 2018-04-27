@@ -29,12 +29,10 @@ public class DisplayRecipeActivity extends AppCompatActivity implements
     private String[] mIngredientList;
     private String[] mDirectionList;
     private Cursor mCursor;
-    private boolean isImperial;
-    private boolean fullNames;
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState){
+    protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_recipe);
@@ -46,9 +44,23 @@ public class DisplayRecipeActivity extends AppCompatActivity implements
         mIngredientListView = findViewById(R.id.lv_ingredient_list);
         mDirectionListView = findViewById(R.id.lv_direction_list);
 
-        isImperial = true;
-        fullNames = false;
 
+        updateText();
+    }
+
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+        if (key.equals(getString(R.string.pref_unit_choice_key))) {
+            boolean selectedImperial = sharedPreferences.getString(key, "").equals(getString(R.string.pref_choice_imperial_value));
+            updateText();
+
+        } else if (key.equals(getString(R.string.pref_unit_abbreviation_key))) {
+            boolean selectedFullNames = sharedPreferences.getString(key, "").equals(getString(R.string.pref_name_full_value));
+            updateText();
+        }
+    }
+
+    private void updateText() {
         Intent parentIntent = getIntent();
 
         String id = parentIntent.getStringExtra(Intent.EXTRA_TEXT);
@@ -58,22 +70,40 @@ public class DisplayRecipeActivity extends AppCompatActivity implements
 
         mCursor.moveToPosition(Integer.parseInt(id) - 1);   // -1 because _id starts at 1 but arrays start at 0 :upside_down:
 
+        displayTitle();
+        displayServings();
+        displayPrepTime();
+        displayCookTime();
+        displayIngredients();
+        displayDirections();
+    }
+
+    private void displayTitle() {
         mDisplayTitleTextView.setText(mCursor.getString(
                 mCursor.getColumnIndex(RecipeContract.RecipeEntry.COLUMN_TITLE)));
+    }
 
+    private void displayServings() {
         String servingsSetText = getString(R.string.display_servings_prefix) + mCursor.getString(
                 mCursor.getColumnIndex(RecipeContract.RecipeEntry.COLUMN_SERVINGS));
         mDisplayServingsTextView.setText(servingsSetText);
+    }
 
-        // TODO: do math to calculate length of time for prep time and cook time
+    // TODO: do math to calculate length of time for prep time and cook time
+    // TODO: create a spinner to select unit of time measurement
+    private void displayPrepTime() {
         String prepTimeSetText = getString(R.string.display_prep_time_prefix) + mCursor.getString(
                 mCursor.getColumnIndex(RecipeContract.RecipeEntry.COLUMN_PREP_TIME));
         mDisplayPrepTimeTextView.setText(prepTimeSetText);
+    }
 
+    private void displayCookTime() {
         String cookTimeSetText = getString(R.string.display_cook_time_prefix) + mCursor.getString(
                 mCursor.getColumnIndex(RecipeContract.RecipeEntry.COLUMN_COOK_TIME));
         mDisplayCookTimeTextView.setText(cookTimeSetText);
+    }
 
+    private void displayIngredients() {
         String ingredientsFullString = mCursor.getString(
                 mCursor.getColumnIndex(RecipeContract.RecipeEntry.COLUMN_INGREDIENTS));
         mIngredientList = ingredientsFullString.split("`");
@@ -89,7 +119,9 @@ public class DisplayRecipeActivity extends AppCompatActivity implements
                 Arrays.asList(mIngredientList));
         mIngredientListView.setAdapter(ingredientListAdapter);
         Utils.setListViewHeightBasedOnChildren(mIngredientListView);
+    }
 
+    private void displayDirections() {
         String directionsFullString = mCursor.getString(
                 mCursor.getColumnIndex(RecipeContract.RecipeEntry.COLUMN_DIRECTIONS));
         mDirectionList = directionsFullString.split("`");
@@ -98,14 +130,5 @@ public class DisplayRecipeActivity extends AppCompatActivity implements
                 Arrays.asList(mDirectionList));
         mDirectionListView.setAdapter(directionListAdapter);
         Utils.setListViewHeightBasedOnChildren(mDirectionListView);
-    }
-
-    @Override
-    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-        if(key.equals(getString(R.string.pref_unit_choice_key))) {
-            if(sharedPreferences.getString(key,"").equals(getString(R.string.pref_choice_imperial_value))) {
-                //
-            }
-        }
     }
 }
