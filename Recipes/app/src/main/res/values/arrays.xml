@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-<<<<<<< HEAD
     <array name="pref_unit_choice_labels">
         <item>@string/pref_choice_imperial_label</item>
         <item>@string/pref_choice_metric_label</item>
@@ -21,9 +20,7 @@
         <item>@string/pref_name_short_value</item>
     </array>
 
-    <array name="list_ingredients_labels">
-=======
->>>>>>> wip
+    <!--<array name="list_ingredients_labels"></array>-->
 
     <!--Imperial -->
 

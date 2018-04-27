@@ -137,6 +137,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         switch (id) {
             case R.id.action_settings:
                 Intent startSettingsActivity = new Intent(this, SettingsActivity.class);
+                startActivity(startSettingsActivity);
                 return true;
             case R.id.action_delete:
                 Uri uri = RecipeContract.RecipeEntry.CONTENT_URI;
