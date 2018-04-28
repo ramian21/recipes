@@ -16,7 +16,7 @@ public class FractionTest {
     @Test
     public void createString() {
         Fraction fraction = new Fraction(1, 2);
-        String string = fraction.createString();
+        String string = fraction.toString();
         assertEquals("1/2", string);
     }
 }

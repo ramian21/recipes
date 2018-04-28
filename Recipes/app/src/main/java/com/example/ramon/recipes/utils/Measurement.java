@@ -135,6 +135,13 @@ public enum Measurement {
 
     public interface Measurable {
         Measurement getType();
+
+        int getValue();
+
+        String[] getNames();
+
+        double convertToOtherUnit();
+
     }
 
     public enum Liquid implements Measurable {
@@ -211,6 +218,8 @@ public enum Measurement {
         private final int value;
         private final Measurement type;
         private final String[] names;
+        private static final double TSP_TO_ML = 4.92892;
+        private static final double ML_TO_TSP = 0.202884;
 
         Liquid(int value, Measurement type, String[] names) {
             this.value = value;
@@ -218,8 +227,18 @@ public enum Measurement {
             this.names = names;
         }
 
+        @Override
         public int getValue() {
             return value;
+        }
+
+        @Override
+        public double convertToOtherUnit() {
+            if (type.equals(Measurement.IMPERIAL)) {
+                return value * TSP_TO_ML;
+            } else {
+                return value * ML_TO_TSP;
+            }
         }
 
         @Override
@@ -227,6 +246,7 @@ public enum Measurement {
             return type;
         }
 
+        @Override
         public String[] getNames() {
             return names;
         }
@@ -268,6 +288,8 @@ public enum Measurement {
         private final int value;
         private final Measurement type;
         private final String[] names;
+        private static final double G_TO_OZ = 0.035274;
+        private static final double OZ_TO_G = 28.3495;
 
         Weight(int value, Measurement type, String[] names) {
             this.value = value;
@@ -275,8 +297,18 @@ public enum Measurement {
             this.names = names;
         }
 
+        @Override
         public int getValue() {
             return value;
+        }
+
+        @Override
+        public double convertToOtherUnit() {
+            if (type.equals(Measurement.IMPERIAL)) {
+                return value * G_TO_OZ;
+            } else {
+                return value * OZ_TO_G;
+            }
         }
 
         @Override
@@ -284,6 +316,7 @@ public enum Measurement {
             return type;
         }
 
+        @Override
         public String[] getNames() {
             return names;
         }
@@ -315,6 +348,8 @@ public enum Measurement {
         private final int value;
         private final Measurement type;
         private final String[] names;
+        private static final double F_TO_C_CONSTANT = 0.555555;
+        private static final double C_TO_F_CONSTANT = 1.8;
 
         Temperature(int value, Measurement type, String[] names) {
             this.value = value;
@@ -322,8 +357,14 @@ public enum Measurement {
             this.names = names;
         }
 
+        @Override
         public int getValue() {
             return value;
+        }
+
+        @Override
+        public double convertToOtherUnit() {
+            return 0;
         }
 
         @Override
@@ -331,6 +372,7 @@ public enum Measurement {
             return type;
         }
 
+        @Override
         public String[] getNames() {
             return names;
         }
@@ -373,7 +415,13 @@ public enum Measurement {
             this.names = names;
         }
 
+        @Override
         public int getValue() {
+            return value;
+        }
+
+        @Override
+        public double convertToOtherUnit() {
             return value;
         }
 
@@ -382,6 +430,7 @@ public enum Measurement {
             return type;
         }
 
+        @Override
         public String[] getNames() {
             return names;
         }

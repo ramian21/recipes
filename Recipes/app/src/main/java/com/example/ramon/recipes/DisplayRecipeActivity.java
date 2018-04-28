@@ -14,7 +14,6 @@ import android.widget.TextView;
 import com.example.ramon.recipes.data.RecipeContract;
 import com.example.ramon.recipes.utils.Utils;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 
 public class DisplayRecipeActivity extends AppCompatActivity implements
@@ -43,7 +42,6 @@ public class DisplayRecipeActivity extends AppCompatActivity implements
         mDisplayCookTimeTextView = findViewById(R.id.tv_cook_time);
         mIngredientListView = findViewById(R.id.lv_ingredient_list);
         mDirectionListView = findViewById(R.id.lv_direction_list);
-
 
         updateText();
     }
@@ -112,7 +110,8 @@ public class DisplayRecipeActivity extends AppCompatActivity implements
         // COMPLETED  for each, check against imperial/metric preference
         //   TODO:   if not preferred, convert
         //          if measurement not found, leave as is
-        Utils.formatUnits(mIngredientList);
+
+        Utils.formatUnits(mIngredientList, this);
 
         ArrayAdapter<String> ingredientListAdapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1,

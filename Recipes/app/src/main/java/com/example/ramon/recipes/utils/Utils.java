@@ -1,13 +1,19 @@
 package com.example.ramon.recipes.utils;
 
+import android.content.Context;
 import android.content.SharedPreferences;
+import android.support.v7.preference.PreferenceManager;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import com.example.ramon.recipes.R;
+
 /**
  * Created by Ramon on 3/28/2018.
  */
@@ -52,40 +58,99 @@ public class Utils {
         listView.setLayoutParams(params);
     }
 
-    public static void formatUnits(String[] array) {
-        for (String s : array) {
-            if (!checkAgainstUnitPreference(s)) {
-                fixUnits(s);
+    public static void formatUnits(String[] array, Context context) {
+        for (int k = 0; k < array.length; k++) {
+            if (!checkAgainstUnitPreference(array[k], context)) {
+                array[k] = fixUnits(array[k], context);
             }
         }
     }
 
-    private static void fixUnits(String entry) {
+    private static String fixUnits(String entry, Context context) {
+        String measurementWord = retrieveMeasurement(entry);
+        String valueWord = retrieveValue(entry);
+        String fixedValue;
+        String fixedMeasurement;
+        String fixedString;
+        Fraction valueFraction;
 
+        // TODO: figure out how to work with fractions
+
+        if (valueWord.contains("/")) {
+            valueFraction = Fraction.parseFraction(valueWord);
+        } else {
+            double numerator = Double.parseDouble(valueWord);
+            valueFraction = new Fraction(numerator, 1);
+        }
+
+        Measurement.Measurable measurement = Measurement.getMeasurement(measurementWord);
+        if (measurement == null) {
+            return entry;
+        }
+        double convertedUnit = measurement.convertToOtherUnit();
+        valueFraction = new Fraction((int) Math.round(valueFraction.getValue() * convertedUnit + 0.5), 1);
+        fixedValue = valueFraction.toString();
+
+        String[] nameList = measurement.getNames();
+
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        if (sharedPreferences.getString(context.getString(R.string.pref_unit_abbreviation_key), "")
+                .equals(context.getString(R.string.pref_name_full_value))) {
+            if (valueFraction.getValue() > 1) {
+                fixedMeasurement = nameList[1];
+            } else {
+                fixedMeasurement = nameList[0];
+            }
+        } else {
+            fixedMeasurement = nameList[2];
+        }
+        fixedString = fixedValue + " " + fixedMeasurement;
+        return fixedString;
     }
 
-    public static String retrieveValue(String entry) {
-        String valueKeyWord = "";
 
-        return valueKeyWord;
-    }
-
-    public static boolean checkAgainstUnitPreference(String entry) {
+    public static boolean checkAgainstUnitPreference(String entry, Context context) {
 
         boolean isPreferred = false;
 
         String measureKeyWord = retrieveMeasurement(entry); //retrieve keyword
-        Measurement.Measurable measurement = Measurement.getMeasurement(measureKeyWord); //match keyword to measurement
-        if (measurement != null) { // TODO: finish preferences and retrieve preference to match to entry keyword
+        Measurement.Measurable foundMeasurement = Measurement.getMeasurement(measureKeyWord); //match keyword to measurement
+        if (foundMeasurement != null) { // COMPLETED: finish preferences and retrieve preference to match to entry keyword
 
-            SharedPreferences sharedPreferences = 
+            //retrieve unit measurement preference
+            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+            Measurement preferredUnitMeasurement;
 
+            //if preference is imperial, set to imperial, else set to metric
+            if (sharedPreferences.getString(context.getString(R.string.pref_unit_choice_key), "")
+                    .equals(context.getString(R.string.pref_choice_imperial_value))) {
+                preferredUnitMeasurement = Measurement.IMPERIAL;
+            } else {
+                preferredUnitMeasurement = Measurement.METRIC;
+            }
 
-            if (measurement.getType().equals(Measurement.IMPERIAL)) {
+            //check if measurement types match
+            if (foundMeasurement.getType().equals(preferredUnitMeasurement)) {
                 isPreferred = true;
             }
         }
         return isPreferred;
+    }
+
+    public static String retrieveValue(String entry) {
+        String valueKeyWord = "";
+        Pattern pattern = Pattern.compile("\\d*\\/?\\d.*\\d+");
+        Matcher matcher = pattern.matcher(entry);
+
+        if (matcher.find()) {
+            int start = matcher.start();
+            int end = matcher.end();
+            valueKeyWord = entry.substring(start, end);
+        }
+        else {
+            valueKeyWord = "1";
+        }
+        return valueKeyWord;
     }
 
     public static String retrieveMeasurement(String entry) {

@@ -11,6 +11,12 @@ public class Fraction {
         this.denominator = denominator;
     }
 
+    public Fraction(double decimal) {
+            int wholeNum = (int) decimal;
+            double remainder = decimal % 1;
+
+    }
+
     private void simplify() {
 
     }
@@ -23,16 +29,24 @@ public class Fraction {
         return fraction;
     }
 
-    public String createString() {
+    public String toString() {
+        if (denominator == 1) {
+            return "" + numerator;
+        }
         String s = numerator + "/" + denominator;
         return s;
     }
 
-    public static int createFraction(double decimal) {
-        long den = Math.round(1 / decimal);
-
-        return 1;
+    public double getValue() {
+        double value = ((double) numerator / denominator);
+        return value;
     }
+
+//    public static int createFraction(double decimal) {
+//        long den = Math.round(1 / decimal);
+//
+//        return 1;
+//    }
 
     @Override
     public boolean equals(Object obj) {
