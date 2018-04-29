@@ -140,7 +140,7 @@ public enum Measurement {
 
         String[] getNames();
 
-        double convertToOtherUnit();
+        double convertToOtherUnit(double initialValue);
 
     }
 
@@ -233,11 +233,11 @@ public enum Measurement {
         }
 
         @Override
-        public double convertToOtherUnit() {
+        public double convertToOtherUnit(double initialValue) {
             if (type.equals(Measurement.IMPERIAL)) {
-                return value * TSP_TO_ML;
+                return value * TSP_TO_ML * initialValue;
             } else {
-                return value * ML_TO_TSP;
+                return value * ML_TO_TSP * initialValue;
             }
         }
 
@@ -303,11 +303,11 @@ public enum Measurement {
         }
 
         @Override
-        public double convertToOtherUnit() {
+        public double convertToOtherUnit(double initialValue) {
             if (type.equals(Measurement.IMPERIAL)) {
-                return value * G_TO_OZ;
+                return  initialValue * value * OZ_TO_G;
             } else {
-                return value * OZ_TO_G;
+                return initialValue * value * G_TO_OZ;
             }
         }
 
@@ -363,8 +363,12 @@ public enum Measurement {
         }
 
         @Override
-        public double convertToOtherUnit() {
-            return 0;
+        public double convertToOtherUnit(double initialValue) {
+            if (type.equals(Measurement.IMPERIAL)) {
+                return (initialValue - 32) * F_TO_C_CONSTANT;
+            } else {
+                return initialValue * C_TO_F_CONSTANT + 32;
+            }
         }
 
         @Override
@@ -421,7 +425,7 @@ public enum Measurement {
         }
 
         @Override
-        public double convertToOtherUnit() {
+        public double convertToOtherUnit(double initialValue) {
             return value;
         }
 

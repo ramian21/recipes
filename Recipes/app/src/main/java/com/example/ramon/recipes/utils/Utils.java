@@ -67,6 +67,8 @@ public class Utils {
     }
 
     private static String fixUnits(String entry, Context context) {
+
+        //retrieve appropriate keywords from entry string
         String measurementWord = retrieveMeasurement(entry);
         String valueWord = retrieveValue(entry);
         String fixedValue;
@@ -74,21 +76,20 @@ public class Utils {
         String fixedString;
         Fraction valueFraction;
 
-        // TODO: figure out how to work with fractions
 
+        //parse the value string into a numeric fraction to use
         if (valueWord.contains("/")) {
             valueFraction = Fraction.parseFraction(valueWord);
         } else {
             double numerator = Double.parseDouble(valueWord);
-            valueFraction = new Fraction(numerator, 1);
+            valueFraction = new Fraction(numerator);
         }
 
         Measurement.Measurable measurement = Measurement.getMeasurement(measurementWord);
         if (measurement == null) {
             return entry;
         }
-        double convertedUnit = measurement.convertToOtherUnit();
-        valueFraction = new Fraction((int) Math.round(valueFraction.getValue() * convertedUnit + 0.5), 1);
+        double convertedUnit = measurement.convertToOtherUnit(valueFraction.getValue());
         fixedValue = valueFraction.toString();
 
         String[] nameList = measurement.getNames();
@@ -115,7 +116,7 @@ public class Utils {
 
         String measureKeyWord = retrieveMeasurement(entry); //retrieve keyword
         Measurement.Measurable foundMeasurement = Measurement.getMeasurement(measureKeyWord); //match keyword to measurement
-        if (foundMeasurement != null) { // COMPLETED: finish preferences and retrieve preference to match to entry keyword
+        if (foundMeasurement != null) { // TODO: fix preference checking
 
             //retrieve unit measurement preference
             SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);

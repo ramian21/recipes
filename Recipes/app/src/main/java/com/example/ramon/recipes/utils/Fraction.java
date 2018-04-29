@@ -9,16 +9,26 @@ public class Fraction {
     public Fraction(int numerator, int denominator) {
         this.numerator = numerator;
         this.denominator = denominator;
+        simplify();
     }
 
     public Fraction(double decimal) {
-            int wholeNum = (int) decimal;
-            double remainder = decimal % 1;
-
+        String asString = "" + decimal;
+        int places = asString.length() - asString.indexOf('.') - 1;
+        int zeroes = (int) Math.pow(10, places);
+        numerator = (int) (decimal * zeroes);
+        denominator = zeroes;
+        simplify();
     }
 
     private void simplify() {
+        int gcm = gcm(numerator, denominator);
+        numerator /= gcm;
+        denominator /= gcm;
+    }
 
+    private int gcm(int a, int b) {
+        return b == 0 ? a : gcm(b, a % b);
     }
 
     public static Fraction parseFraction(String fractionString) {
