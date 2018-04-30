@@ -142,6 +142,8 @@ public enum Measurement {
 
         double convertToOtherUnit(double initialValue);
 
+        Measurable getOtherBaseUnit();
+
     }
 
     public enum Liquid implements Measurable {
@@ -242,6 +244,15 @@ public enum Measurement {
         }
 
         @Override
+        public Measurable getOtherBaseUnit() {
+            if (type.equals(Measurement.IMPERIAL)) {
+                return MILLILITER;
+            } else {
+                return TEASPOON;
+            }
+        }
+
+        @Override
         public Measurement getType() {
             return type;
         }
@@ -305,11 +316,21 @@ public enum Measurement {
         @Override
         public double convertToOtherUnit(double initialValue) {
             if (type.equals(Measurement.IMPERIAL)) {
-                return  initialValue * value * OZ_TO_G;
+                return initialValue * value * OZ_TO_G;
             } else {
                 return initialValue * value * G_TO_OZ;
             }
         }
+
+        @Override
+        public Measurable getOtherBaseUnit() {
+            if (type.equals(Measurement.IMPERIAL)) {
+                return GRAM;
+            } else {
+                return OUNCE;
+            }
+        }
+
 
         @Override
         public Measurement getType() {
@@ -372,6 +393,15 @@ public enum Measurement {
         }
 
         @Override
+        public Measurable getOtherBaseUnit() {
+            if (type.equals(Measurement.IMPERIAL)) {
+                return CELSIUS;
+            } else {
+                return FAHRENHEIT;
+            }
+        }
+
+        @Override
         public Measurement getType() {
             return type;
         }
@@ -428,6 +458,12 @@ public enum Measurement {
         public double convertToOtherUnit(double initialValue) {
             return value;
         }
+
+        @Override
+        public Measurable getOtherBaseUnit() {
+            return SECOND;
+        }
+
 
         @Override
         public Measurement getType() {

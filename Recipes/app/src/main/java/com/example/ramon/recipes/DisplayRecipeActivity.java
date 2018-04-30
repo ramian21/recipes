@@ -108,7 +108,7 @@ public class DisplayRecipeActivity extends AppCompatActivity implements
 
         // COMPLETED: parse each entry of ingredient to find the measurement listed
         // COMPLETED  for each, check against imperial/metric preference
-        //   TODO:   if not preferred, convert
+        //   COMPLETED:   if not preferred, convert
         //          if measurement not found, leave as is
 
         Utils.formatUnits(mIngredientList, this);
