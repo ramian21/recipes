@@ -103,7 +103,6 @@ public enum Measurement {
     };
 
 
-    // COMPLETED: figure out how to prevent double words from being matched
     public static Measurable getMeasurement(String givenUnit) {
         for (int k = 0; k < namesList.length; k++) {
             if (namesList[k].matches("^" + givenUnit)) {
@@ -131,7 +130,6 @@ public enum Measurement {
         return null;
     }
 
-    // COMPLETED: figure out how to return a list of relevant measurements
 
     public interface Measurable {
         Measurement getType();

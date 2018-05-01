@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.PersistableBundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -105,14 +107,7 @@ public class DisplayRecipeActivity extends AppCompatActivity implements
         String ingredientsFullString = mCursor.getString(
                 mCursor.getColumnIndex(RecipeContract.RecipeEntry.COLUMN_INGREDIENTS));
         mIngredientList = ingredientsFullString.split("`");
-
-        // COMPLETED: parse each entry of ingredient to find the measurement listed
-        // COMPLETED  for each, check against imperial/metric preference
-        //   COMPLETED:   if not preferred, convert
-        //          if measurement not found, leave as is
-
         Utils.formatUnits(mIngredientList, this);
-
         ArrayAdapter<String> ingredientListAdapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1,
                 Arrays.asList(mIngredientList));

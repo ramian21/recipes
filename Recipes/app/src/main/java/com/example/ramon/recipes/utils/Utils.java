@@ -76,6 +76,7 @@ public class Utils {
         String fixedMeasurement;
         String fixedString;
         Fraction valueFraction;
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
 
         int index = entry.indexOf(measurementWord);
 
@@ -98,19 +99,36 @@ public class Utils {
             return entry;
         }
 
-        // TODO: check fraction/decimal preference
+        // COMPLETED: check fraction/decimal preference
 
-        double convertedUnit = measurement.convertToOtherUnit(valueFraction.getValue());
-        fixedValue = "" + convertedUnit; //change this after fraction/decimal pref is created
+        String measurementChoiceKey = context.getString(R.string.pref_measurement_choice_key);
+        String measurementDefaultValue = context.getString(R.string.pref_measurement_default_value);
+        String measurementDecimalValue = context.getString(R.string.pref_measurement_decimal_value);
+        String prefChoiceKey = context.getString(R.string.pref_unit_choice_key);
+        String prefChoiceImperial = context.getString(R.string.pref_choice_imperial_value);
+        String prefUnitKey = context.getString(R.string.pref_unit_abbreviation_key);
+        String prefNameFull = context.getString(R.string.pref_name_full_value);
 
+        double decimalValue = measurement.convertToOtherUnit(valueFraction.getValue());
+        if (sharedPreferences.getString(measurementChoiceKey, "").equals(measurementDefaultValue)) {
+            if (sharedPreferences.getString(prefChoiceKey, "").equals(prefChoiceImperial)) {
+                Fraction decimalInFractionForm = new Fraction(decimalValue);
+                fixedValue = decimalInFractionForm.toString();
+            } else {
+                fixedValue = "" + decimalValue;
+            }
+        } else if (sharedPreferences.getString(measurementChoiceKey, "").equals(measurementDecimalValue)) {
+            fixedValue = "" + decimalValue;
+        } else {
+            Fraction decimalInFractionForm = new Fraction(decimalValue);
+            fixedValue = decimalInFractionForm.toString();
+        }
 
         measurement = measurement.getOtherBaseUnit();
         String[] nameList = measurement.getNames();
 
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-        if (sharedPreferences.getString(context.getString(R.string.pref_unit_abbreviation_key), "")
-                .equals(context.getString(R.string.pref_name_full_value))) {
-            if (valueFraction.getValue() > 1) {
+        if (sharedPreferences.getString(prefUnitKey, "").equals(prefNameFull)) {
+            if (decimalValue > 1) {
                 fixedMeasurement = nameList[1];
             } else {
                 fixedMeasurement = nameList[0];
@@ -118,7 +136,11 @@ public class Utils {
         } else {
             fixedMeasurement = nameList[2];
         }
-        fixedString = fixedValue + " " + fixedMeasurement + restOfTheEntry;
+        if (sharedPreferences.getString(prefChoiceKey, "").equals(prefChoiceImperial)) {
+            fixedString = fixedValue + " " + fixedMeasurement + restOfTheEntry;
+        } else {
+            fixedString = fixedValue + fixedMeasurement + restOfTheEntry;
+        }
         return fixedString;
     }
 
@@ -129,7 +151,7 @@ public class Utils {
 
         String measureKeyWord = retrieveMeasurement(entry); //retrieve keyword
         Measurement.Measurable foundMeasurement = Measurement.getMeasurement(measureKeyWord); //match keyword to measurement
-        if (foundMeasurement != null) { // COMPLETED: fix preference checking
+        if (foundMeasurement != null) {
 
             //retrieve unit measurement preference
             SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);

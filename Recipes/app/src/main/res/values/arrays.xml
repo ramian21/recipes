@@ -20,6 +20,18 @@
         <item>@string/pref_name_short_value</item>
     </array>
 
+    <array name="pref_measurement_choice_labels">
+        <item>@string/pref_measurement_default_label</item>
+        <item>@string/pref_measurement_decimal_label</item>
+        <item>@string/pref_measurement_fraction_label</item>
+    </array>
+
+    <array name="pref_measurement_choice_values">
+        <item>@string/pref_measurement_default_value</item>
+        <item>@string/pref_measurement_decimal_value</item>
+        <item>@string/pref_measurement_fraction_value</item>
+    </array>
+
     <!--<array name="list_ingredients_labels"></array>-->
 
     <!--Imperial -->

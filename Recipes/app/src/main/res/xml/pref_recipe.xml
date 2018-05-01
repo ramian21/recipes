@@ -15,5 +15,11 @@
         android:key="@string/pref_unit_abbreviation_key"
         android:title="@string/pref_unit_abbreviation_label" />
 
+    <ListPreference
+        android:defaultValue="@string/pref_measurement_default_value"
+        android:entries="@array/pref_measurement_choice_labels"
+        android:entryValues="@array/pref_measurement_choice_values"
+        android:key="@string/pref_measurement_choice_key"
+        android:title="@string/pref_measurement_choice_label" />
 
 </PreferenceScreen>

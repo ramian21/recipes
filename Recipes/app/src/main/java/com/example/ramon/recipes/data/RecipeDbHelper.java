@@ -33,6 +33,7 @@ public class RecipeDbHelper extends SQLiteOpenHelper {
 
         // TODO: add letter headers to database after creation
         // TODO: add a column for search tags
+        //       also probably look up how onUpgrade() works
     }
 
     @Override

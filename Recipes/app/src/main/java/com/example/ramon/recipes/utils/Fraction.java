@@ -1,4 +1,4 @@
-// TODO: write Fraction methods as needed
+// COMPLETED: write Fraction methods as needed
 
 package com.example.ramon.recipes.utils;
 
@@ -14,6 +14,8 @@ public class Fraction {
 
     public Fraction(double decimal) {
         String asString = "" + decimal;
+        asString = !asString.contains(".") ? asString :
+                asString.replaceAll("0*$", "").replaceAll("\\.$", "");
         int places = asString.length() - asString.indexOf('.') - 1;
         int zeroes = (int) Math.pow(10, places);
         numerator = (int) (decimal * zeroes);
