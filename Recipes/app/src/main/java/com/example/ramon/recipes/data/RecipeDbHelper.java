@@ -12,7 +12,7 @@ import com.example.ramon.recipes.data.RecipeContract.RecipeEntry;
 
 public class RecipeDbHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "recipesdb.db";
-    private static final int VERSION = 1;
+    private static final int VERSION = 2;
 
     RecipeDbHelper(Context context) {
         super(context, DATABASE_NAME, null, VERSION);
@@ -27,7 +27,8 @@ public class RecipeDbHelper extends SQLiteOpenHelper {
                 RecipeEntry.COLUMN_PREP_TIME + " INTEGER, " +
                 RecipeEntry.COLUMN_COOK_TIME + " INTEGER, " +
                 RecipeEntry.COLUMN_INGREDIENTS + " TEXT NOT NULL, " +
-                RecipeEntry.COLUMN_DIRECTIONS + " TEXT NOT NULL " +
+                RecipeEntry.COLUMN_DIRECTIONS + " TEXT NOT NULL, " +
+                RecipeEntry.COLUMN_TAGS + " TEXT" +
                 ");";
         db.execSQL(CREATE_TABLE);
 
@@ -38,7 +39,10 @@ public class RecipeDbHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS " + RecipeEntry.TABLE_NAME);
-        onCreate(db);
+
+        if (oldVersion < 2) {
+            db.execSQL("ALTER TABLE " + RecipeEntry.TABLE_NAME + " ADD COLUMN " +
+                    RecipeEntry.COLUMN_TAGS + " TEXT;");
+        }
     }
 }

@@ -23,5 +23,6 @@ public class RecipeContract {
         public static final String COLUMN_COOK_TIME = "cook_time";
         public static final String COLUMN_INGREDIENTS = "ingredients";
         public static final String COLUMN_DIRECTIONS = "directions";
+        public static final String COLUMN_TAGS = "tags";
     }
 }
