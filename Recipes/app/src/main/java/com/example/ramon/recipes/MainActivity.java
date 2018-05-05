@@ -109,8 +109,10 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     @Override
     public void onListItemClick(int recipeId) {
 
-        // TODO: after adding headers per letter, implement checks to only display if not a header
-
+        // COMPLETED: after adding headers per letter, implement checks to only display if not a header
+        if (recipeId > 0 && recipeId <= 26) {
+            return;
+        }
         Intent displayRecipeIntent = new Intent(this, DisplayRecipeActivity.class);
         displayRecipeIntent.putExtra(Intent.EXTRA_TEXT, "" + recipeId);
         startActivity(displayRecipeIntent);
@@ -142,7 +144,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                 return true;
             case R.id.action_delete:
                 Uri uri = RecipeContract.RecipeEntry.CONTENT_URI;
-                getContentResolver().delete(uri, null, null);
+                getContentResolver().delete(uri, RecipeContract.RecipeEntry._ID + ">?", new String[]{"26"});
                 return true;
         }
         //noinspection SimplifiableIfStatement

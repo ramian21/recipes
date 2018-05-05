@@ -88,7 +88,6 @@ public class RecipeContentProvider extends ContentProvider {
     @Override
     public int delete(@NonNull Uri uri, String selection, String[] selectionArgs) {
 
-
         final SQLiteDatabase db = mRecipeDbHelper.getWritableDatabase();
 
         int match = sUriMatcher.match(uri);
@@ -96,7 +95,7 @@ public class RecipeContentProvider extends ContentProvider {
 
         switch (match) {
             case RECIPES:
-                // TODO: update selection to not delete headers
+                // COMPLETED: update selection to not delete headers
                 rowsDeleted = db.delete(RecipeContract.RecipeEntry.TABLE_NAME, selection, selectionArgs);
                 break;
             case RECIPE_WITH_ID:
@@ -104,6 +103,7 @@ public class RecipeContentProvider extends ContentProvider {
                 String selectClause = RecipeContract.RecipeEntry._ID + "=?";
                 rowsDeleted = db.delete(RecipeContract.RecipeEntry.TABLE_NAME, selectClause,
                         new String[]{id});
+                break;
             default:
                 throw new UnsupportedOperationException("Unknown uri: " + uri);
         }
@@ -147,6 +147,18 @@ public class RecipeContentProvider extends ContentProvider {
                 return "vnd.android.cursor.item" + "/" + RecipeContract.AUTHORITY + "/" + RecipeContract.PATH_RECIPES;
             default:
                 throw new UnsupportedOperationException("Unknown uri: " + uri);
+        }
+    }
+
+    public static void addHeaders(SQLiteDatabase db) {
+        for (int k = (int) 'A'; k < (int) 'A' + 26; k++) {
+            db.execSQL("INSERT INTO " + RecipeContract.RecipeEntry.TABLE_NAME + " (" +
+                    RecipeContract.RecipeEntry.COLUMN_TITLE + ", " +
+                    RecipeContract.RecipeEntry.COLUMN_INGREDIENTS + ", " +
+                    RecipeContract.RecipeEntry.COLUMN_DIRECTIONS + ") " +
+                    "VALUES (" +
+                    "\"" + (char) k + "\"" + ", " + "\"\", " + "\"\"" +
+                    ");");
         }
     }
 }

@@ -32,23 +32,11 @@ public class RecipeDbHelper extends SQLiteOpenHelper {
                 RecipeEntry.COLUMN_TAGS + " TEXT" +
                 ");";
         db.execSQL(CREATE_TABLE);
-        addHeaders(db);
+        RecipeContentProvider.addHeaders(db);
 
         // COMPLETED: add letter headers to database after creation
         // COMPLETED: add a column for search tags
         //       also probably look up how onUpgrade() works
-    }
-
-    private void addHeaders(SQLiteDatabase db) {
-        for (int k = (int) 'A'; k < (int) 'A' + 26; k++) {
-            db.execSQL("INSERT INTO " + RecipeEntry.TABLE_NAME + " (" +
-                    RecipeEntry.COLUMN_TITLE + ", " +
-                    RecipeEntry.COLUMN_INGREDIENTS + ", " +
-                    RecipeEntry.COLUMN_DIRECTIONS + ") " +
-                    "VALUES (" +
-                    "\"" + (char) k + "\"" + ", " + "\"\", " + "\"\"" +
-                    ");");
-        }
     }
 
     @Override
@@ -59,7 +47,7 @@ public class RecipeDbHelper extends SQLiteOpenHelper {
                     RecipeEntry.COLUMN_TAGS + " TEXT;");
         }
         if (oldVersion < 3) {
-            addHeaders(db);
+            RecipeContentProvider.addHeaders(db);
         }
     }
 }
