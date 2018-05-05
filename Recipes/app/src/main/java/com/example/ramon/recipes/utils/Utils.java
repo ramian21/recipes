@@ -99,8 +99,6 @@ public class Utils {
             return entry;
         }
 
-        // COMPLETED: check fraction/decimal preference
-
         String measurementChoiceKey = context.getString(R.string.pref_measurement_choice_key);
         String measurementDefaultValue = context.getString(R.string.pref_measurement_default_value);
         String measurementDecimalValue = context.getString(R.string.pref_measurement_decimal_value);

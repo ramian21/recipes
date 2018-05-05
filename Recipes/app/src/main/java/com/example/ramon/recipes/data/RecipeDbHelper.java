@@ -12,7 +12,8 @@ import com.example.ramon.recipes.data.RecipeContract.RecipeEntry;
 
 public class RecipeDbHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "recipesdb.db";
-    private static final int VERSION = 2;
+    private static final int VERSION = 3;
+
 
     RecipeDbHelper(Context context) {
         super(context, DATABASE_NAME, null, VERSION);
@@ -31,10 +32,23 @@ public class RecipeDbHelper extends SQLiteOpenHelper {
                 RecipeEntry.COLUMN_TAGS + " TEXT" +
                 ");";
         db.execSQL(CREATE_TABLE);
+        addHeaders(db);
 
-        // TODO: add letter headers to database after creation
-        // TODO: add a column for search tags
+        // COMPLETED: add letter headers to database after creation
+        // COMPLETED: add a column for search tags
         //       also probably look up how onUpgrade() works
+    }
+
+    private void addHeaders(SQLiteDatabase db) {
+        for (int k = (int) 'A'; k < (int) 'A' + 26; k++) {
+            db.execSQL("INSERT INTO " + RecipeEntry.TABLE_NAME + " (" +
+                    RecipeEntry.COLUMN_TITLE + ", " +
+                    RecipeEntry.COLUMN_INGREDIENTS + ", " +
+                    RecipeEntry.COLUMN_DIRECTIONS + ") " +
+                    "VALUES (" +
+                    "\"" + (char) k + "\"" + ", " + "\"\", " + "\"\"" +
+                    ");");
+        }
     }
 
     @Override
@@ -43,6 +57,9 @@ public class RecipeDbHelper extends SQLiteOpenHelper {
         if (oldVersion < 2) {
             db.execSQL("ALTER TABLE " + RecipeEntry.TABLE_NAME + " ADD COLUMN " +
                     RecipeEntry.COLUMN_TAGS + " TEXT;");
+        }
+        if (oldVersion < 3) {
+            addHeaders(db);
         }
     }
 }

@@ -1,4 +1,3 @@
-// COMPLETED: write Fraction methods as needed
 
 package com.example.ramon.recipes.utils;
 
