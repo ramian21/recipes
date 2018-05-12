@@ -25,6 +25,11 @@ public class Utils {
      **** Hack to fix the issue of not showing all the items of the ListView
      **** when placed inside a ScrollView  ****/
 
+    public static String getTimeString(int minutes) {
+        // TODO: fill out getTimeString method
+        return "";
+    }
+
     public static void setListViewHeightBasedOnChildren(ListView listView) {
 
         //if the adapter of this ListView is null, return;
@@ -141,7 +146,6 @@ public class Utils {
         }
         return fixedString;
     }
-
 
     public static boolean checkAgainstUnitPreference(String entry, Context context) {
 

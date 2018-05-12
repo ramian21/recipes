@@ -34,9 +34,6 @@ public class RecipeDbHelper extends SQLiteOpenHelper {
         db.execSQL(CREATE_TABLE);
         RecipeContentProvider.addHeaders(db);
 
-        // COMPLETED: add letter headers to database after creation
-        // COMPLETED: add a column for search tags
-        //       also probably look up how onUpgrade() works
     }
 
     @Override

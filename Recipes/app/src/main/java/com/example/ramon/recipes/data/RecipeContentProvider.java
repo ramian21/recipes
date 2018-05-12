@@ -95,7 +95,6 @@ public class RecipeContentProvider extends ContentProvider {
 
         switch (match) {
             case RECIPES:
-                // COMPLETED: update selection to not delete headers
                 rowsDeleted = db.delete(RecipeContract.RecipeEntry.TABLE_NAME, selection, selectionArgs);
                 break;
             case RECIPE_WITH_ID:

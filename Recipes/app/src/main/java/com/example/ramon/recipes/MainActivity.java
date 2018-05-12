@@ -1,9 +1,11 @@
 package com.example.ramon.recipes;
 
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
@@ -11,12 +13,17 @@ import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ProgressBar;
 
 import com.example.ramon.recipes.data.RecipeContract;
+
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+import java.io.OutputStreamWriter;
 
 public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>, RecipeAdapter.ListItemClickListener {
 
@@ -109,7 +116,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     @Override
     public void onListItemClick(int recipeId) {
 
-        // COMPLETED: after adding headers per letter, implement checks to only display if not a header
         if (recipeId > 0 && recipeId <= 26) {
             return;
         }
@@ -146,6 +152,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                 Uri uri = RecipeContract.RecipeEntry.CONTENT_URI;
                 getContentResolver().delete(uri, RecipeContract.RecipeEntry._ID + ">?", new String[]{"26"});
                 return true;
+            case R.id.action_export:
+                exportToTextFile();
         }
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
@@ -154,5 +162,102 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
 
         return super.onOptionsItemSelected(item);
+    }
+
+    // TODO: methods to read a recipe.txt file
+    // COMPLETED: methods to write to a recipe.txt file
+    // TODO: method to "share recipe" through email, text, etc
+
+    private void exportToTextFile() {
+        try {
+            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(openFileOutput
+                    ("recipes.txt", Context.MODE_PRIVATE));
+            // code to iterate through each recipe and write to file
+            String[][] recipeData = getRecipeDataToExport();
+
+            for (int k = 0; k < recipeData.length; k++) {
+                outputStreamWriter.write(recipeData[k][0] + ", serves " + recipeData[k][1]);
+                outputStreamWriter.write("\ntags: ");
+
+                String[] tags = recipeData[k][6].split("`");
+                for (String entry : tags) {
+                    outputStreamWriter.write(entry + ", ");
+                }
+
+                outputStreamWriter.write("\nPrep Time " + recipeData[k][2] + ", Cook Time: " +
+                        recipeData[k][3] + "\n\n");
+
+                outputStreamWriter.write("Ingredients: \n");
+                String[] ingredients = recipeData[k][4].split("`");
+                for (String entry : ingredients) {
+                    outputStreamWriter.write(entry + "\n");
+                }
+
+                outputStreamWriter.write("\nDirections: ");
+                String[] directions = recipeData[k][5].split("`");
+                outputStreamWriter.write("\n");
+                for (String entry : directions) {
+                    outputStreamWriter.write(entry + "\n");
+                }
+                outputStreamWriter.write("\n---\n");
+            }
+
+            outputStreamWriter.close();
+        } catch (Exception e) {
+            Log.e("Exception", "File write failed");
+        }
+    }
+
+    private void readFromFile() {
+        String fileText = "";
+        try {
+            InputStream inputStream = openFileInput("recipes.txt");
+        } catch (FileNotFoundException e) {
+            Log.e("Exception", "File not found");
+        }
+    }
+
+    private String[][] getRecipeDataToExport() {
+        Cursor cursor = getContentResolver().query(RecipeContract.RecipeEntry.CONTENT_URI,
+                null,
+                RecipeContract.RecipeEntry._ID + ">?",
+                new String[]{"26"},
+                RecipeContract.RecipeEntry.COLUMN_TITLE + " ASC");
+        if (cursor == null || cursor.getCount() == 0) {
+            return null;
+        }
+        cursor.moveToFirst();
+
+        String[][] recipeData = new String[cursor.getCount()][];
+
+        for (int k = 0; k < cursor.getCount(); k++) {
+            String titleString = cursor.getString(
+                    cursor.getColumnIndex(RecipeContract.RecipeEntry.COLUMN_TITLE));
+            String servingString = cursor.getString(
+                    cursor.getColumnIndex(RecipeContract.RecipeEntry.COLUMN_SERVINGS));
+            String prepTimeString = cursor.getString(
+                    cursor.getColumnIndex(RecipeContract.RecipeEntry.COLUMN_PREP_TIME));
+            String cookTimeString = cursor.getString(
+                    cursor.getColumnIndex(RecipeContract.RecipeEntry.COLUMN_COOK_TIME));
+            String ingredientString = cursor.getString(
+                    cursor.getColumnIndex(RecipeContract.RecipeEntry.COLUMN_INGREDIENTS));
+            String directionString = cursor.getString(
+                    cursor.getColumnIndex(RecipeContract.RecipeEntry.COLUMN_DIRECTIONS));
+            String tagString = cursor.getString(
+                    cursor.getColumnIndex(RecipeContract.RecipeEntry.COLUMN_TAGS));
+
+            String[] individualRecipeData = {titleString,
+                    servingString,
+                    prepTimeString,
+                    cookTimeString,
+                    ingredientString,
+                    directionString,
+                    tagString};
+
+            recipeData[k] = individualRecipeData;
+            cursor.moveToNext();
+        }
+
+        return recipeData;
     }
 }

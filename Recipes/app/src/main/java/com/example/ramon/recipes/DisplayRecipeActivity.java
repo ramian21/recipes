@@ -125,4 +125,17 @@ public class DisplayRecipeActivity extends AppCompatActivity implements
         mDirectionListView.setAdapter(directionListAdapter);
         Utils.setListViewHeightBasedOnChildren(mDirectionListView);
     }
+
+    private void displayTags() {
+        // TODO: decide whether to display tags as a vertical list or just comma'd
+
+        //String tagsFullString = mCursor.getString(
+        //        mCursor.getColumnIndex(RecipeContract.RecipeEntry.COLUMN_TAGS));
+        //mTagList = tagsFullString.split("`");
+        //ArrayAdapter<String> tagListAdapter = new ArrayAdapter<String> (this,
+        //        android.R.layout.simple_list_item_1,
+        //        Arrays.asList(mTagList));
+        // mTagListView.setAdapter(tagListAdapter);
+        //)
+    }
 }

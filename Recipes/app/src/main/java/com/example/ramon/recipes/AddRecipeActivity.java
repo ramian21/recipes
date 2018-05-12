@@ -26,10 +26,12 @@ public class AddRecipeActivity extends AppCompatActivity {
     private EditText mCookTimeEditText;
     private EditText mIngredientsEditText;
     private EditText mDirectionsEditText;
+    private EditText mTagsEditText;
     private Button mSubmitRecipeButton;
 
     private ArrayList<EditText> mIngredientList;
     private ArrayList<EditText> mDirectionList;
+    private ArrayList<EditText> mTagList;
 
     private TextWatcher mIngredientTextChangeListener;
     private TextWatcher mDirectionTextChangeListener;
@@ -131,6 +133,10 @@ public class AddRecipeActivity extends AppCompatActivity {
                 for (EditText e : mDirectionList) {
                     directions = directions.concat(e.getText().toString()).concat("`");
                 }
+                String tags = title;
+//                for(EditText e : mTagList) {
+//                    tags = tags.concat(e.getText().toString()).concat("`");
+//                }
                 // TODO: do parsing and mathing to standardize entry time
                 ContentValues contentValues = new ContentValues();
                 contentValues.put(RecipeContract.RecipeEntry.COLUMN_TITLE, title);
@@ -139,6 +145,7 @@ public class AddRecipeActivity extends AppCompatActivity {
                 contentValues.put(RecipeContract.RecipeEntry.COLUMN_COOK_TIME, cookTime);
                 contentValues.put(RecipeContract.RecipeEntry.COLUMN_INGREDIENTS, ingredients);
                 contentValues.put(RecipeContract.RecipeEntry.COLUMN_DIRECTIONS, directions);
+                contentValues.put(RecipeContract.RecipeEntry.COLUMN_TAGS, tags);
 
                 Uri uri = getContentResolver().insert(
                         RecipeContract.RecipeEntry.CONTENT_URI, contentValues);
